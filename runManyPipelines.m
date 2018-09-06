@@ -29,18 +29,22 @@
 %       C:\Docs\dicom-dict-4PETMRI.txt
 
 % Location of data source
-pathToData = 'D:\Gary\PETMRI_TestData_B20P_Test2';
+folderList = ['D:\Gary\PETMRI_TestData_B20P_Test2'; ...
+              'D:\Gary\PETMRI_TestData_B20P_Test3'];
+
+nFolders = length(folderList(:,1));
 
 % DIX, CAT  - use existing uMaps
 % EDI, NYC  - create uMaps from Radial Vibe
-%uMapTypeMatrix = ['EDI';'NYC';'DIX'];
+uMapTypeList = ['EDI';'NYC';'DIX'];
 
-uMapTypeMatrix = ['NYC';'DIX'];
+nTypes = length(uMapTypeList(:,1));
 
-nTypes = length(uMapTypeMatrix(:,1));
-
-for iUMapsType = 1:nTypes
+for iFolder = 1 : nFolders
+    for iUMapsType = 1:nTypes
     
-     runPipeline(uMapTypeMatrix(iUMapsType,:), pathToData);
+     runPipeline(uMapTypeList(iUMapsType,:), ...
+                 folderList(iFolder,:));
 
+    end % for iUMapsType
 end
