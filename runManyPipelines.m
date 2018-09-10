@@ -47,6 +47,10 @@
 data.folderList = ['D:\Gary\PETMRI_TestData_B20P_Test2'; ...
                    'D:\Gary\PETMRI_TestData_B20P_Test3'];
                
+data.folderList = ['PETCT_TestData_G60_Test1'; ...
+                   'PETCT_TestData_G60_Test2'];
+
+
 nFolders = length(data.folderList(:,1));
 
 % DIX, CAT  - use existing uMaps

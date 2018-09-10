@@ -67,9 +67,10 @@ function runPipeline(uMapType, ...
 %           to the same convention for all data.
 %
 nameDXuMaps  = 'Dixon_umap'; 
-nameCTuMaps  = 'Static-CT';  
+%nameCTuMaps  = 'Static-CT';  
 nameRadVibe  = 'RadialVIBE'; 
    
+nameCTuMaps  = 'CT';  
 % Data/scanner version: 'B20' or 'E11';
 % required for Radial Vibe EDI 
 %   To Do: extract from DICOM header info
@@ -147,8 +148,8 @@ runReconstruction(pathProcessing,nameData);
 % d) Copy the reconstructed data,  
 %    and umaps to the destination
 
-pathConvertedData  = getPathConvertedOP(pathProcessing, ...
-                                        nameData);
+pathConvertedData  = getPathConvertedFolders(pathProcessing, ...
+                                             nameData);
 
 pathCompletedData  = getPathCompletedData(pathCompleted, ...
                                           nameData,      ...
