@@ -1,10 +1,11 @@
 function [ ] = createUMapsEDI( dataVersion,    ...
-                               pathRadialVibe, ...
-                               pathOutputUMaps)
+                               pathRadVibeData, ...
+                               pathRadVibeUMaps)
 % createUMapsEDI() Use Radial Vibes data to create uMaps
 %   dataVersion is used to dictate thresholds
 % 
-% gary.smith@ed.ac.uk   04 09 2018
+% Adapted
+% gary.smith@ed.ac.uk   10 09 2018
 %
 % Notes: extract data version from DICOM 
 %        to reduce number of i/p arguments   
@@ -13,8 +14,8 @@ codePath = pwd;
 
 % To do - use full paths to file names
 %         to prevent having to cd
-addpath( pathRadialVibe, ...
-         pathOutputUMaps );
+addpath( pathRadVibeData, ...
+         pathRadVibeUMaps );
 
 %---------------------
 %  set thresholds
@@ -32,7 +33,7 @@ end
 
 % Create array of radial vibe files
 % To do: change to full file paths
-cd(pathRadialVibe);
+cd(pathRadVibeData);
 inputFileArray = ls('*IMA*');
 
 % To do: test requirement for clear
@@ -40,7 +41,7 @@ clear ima_in info_in
 
 % Path where created uMaps will go
 % To do: change to full file paths
-cd( pathOutputUMaps ); 
+cd( pathRadVibeUMaps ); 
    
 nFiles = size(inputFileArray,1);
 
@@ -82,8 +83,8 @@ for iFile = 1:nFiles
     
 end
 
-rmpath( pathRadialVibe, ...
-        pathOutputUMaps );
+rmpath( pathRadVibeData, ...
+        pathRadVibeUMaps );
      
 cd( codePath );
 

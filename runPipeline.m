@@ -1,5 +1,5 @@
-function [ ] = runPipeline(uMapType, ...
-                           pathData)
+function runPipeline(uMapType, ...
+                     pathData)
 % runPipeline() execute PET MRI reconstruction pipeline
 % 
 % ---------------
@@ -24,21 +24,21 @@ function [ ] = runPipeline(uMapType, ...
 %   in the production of image reconstructions.
 %
 %   The image reconstructions are copied to an output folder
-%   (Processing) with the corresponding uMaps ready for transfer.
+%   (Completed) with the corresponding uMaps ready for transfer.
 % 
 % ---------------
 % Input arguments 
 %
-%   uMapType: 'DIX', 'CAT' - use existing uMaps
-%             'EDI', 'NYC'  - create uMaps from Radial Vibes
+%   uMapType: 'DX', 'CT' - use existing uMaps
+%             'ED', 'NY' - create uMaps from Radial Vibes
 %
-%   pathData: full path to the data and uMaps folders   
-%
+%   pathData: full path to the folder containing data folders 
+%             and uMaps folders   
 %
 % ---------------
 % Author
 %
-%   gary.smith@ed.ac.uk     07 09 201
+%   gary.smith@ed.ac.uk     10 09 201
 %
 %--------------------------
 %--------------------------
@@ -49,126 +49,134 @@ function [ ] = runPipeline(uMapType, ...
 %   to runManyPipelines.m
 %   and add as input variables:
 %
+%   Only copy data and/or uMaps relevant to the 
+%   uMap type to Processing folder
+%
 %   Change pathProcessing and pathTrans to 
-%   paths relative to 'drive'.
+%   paths relative to root folder
 %
 %--------------------------
 
-
-
-
+%
 % uMaps and Radial Vibes
 %   To Do:  initialise in runManyPipelines()
 %           and pass as argument
-nameDixonUMaps  = 'Dixon_umap';
-nameCTUMaps     = 'Static-CT';
-nameRadialVibe  = 'RadialVIBE';
-
+%           Ultimately standardise by searching 
+%           folder names for string comparisons
+%           using this to change folder names 
+%           to the same convention for all data.
+%
+nameDXuMaps  = 'Dixon_umap'; 
+nameCTuMaps  = 'Static-CT';  
+nameRadVibe  = 'RadialVIBE'; 
+   
 % Data/scanner version: 'B20' or 'E11';
 % required for Radial Vibe EDI 
 %   To Do: extract from DICOM header info
 dataVersion = 'B20';
 
-%'D:\Gary\Processing';
-
+%-------------------------------------------------
+%-------------------------------------------------
+% Set path variables
+%
+%
+% Bottom level folder containing / to contain:
+% [Data], Processing, and Completed folders
 pathRootFolder = getPathRootFolder(pathData);
 
-% Location for Processingstructing Data
-pathProcess = 'Processing';
-pathProcess = [pathRootFolder,'\',pathProcess]; 
+% Location for processing data
+pathProcessing = getPathProcessing(pathRootFolder);
 
-% Location to Transfer from
-pathOutput  = 'Output';
-pathOutput  = [pathRootFolder,'\',pathOutput];
+% Location to store converted data ready for transfer
+pathCompleted  = getPathCompleted(pathRootFolder);
 
-% name of raw data folder  
+% name of Data (folder)  
 nameData = getNameData(pathData);    
 
-% Paths to data and uMaps
-pathDixonUMaps  = setPathUMaps(pathProcess, ...
-                               nameData,  ...
-                               nameDixonUMaps);
-                           
-pathCTUMaps     = setPathUMaps(pathProcess, ...
-                               nameData,  ...
-                               nameCTUMaps);
-                           
-pathRadialVibe  = setPathRadialVibe(pathProcess, ...
-                                    nameData,  ...
-                                    nameRadialVibe);
-                                
-pathOutputUMaps = setPathOutputUMaps(pathProcess,      ...
-                                     nameData,       ...
-                                     nameRadialVibe, ...
-                                     uMapType);
 
-pathProcessingData  = setPathProcessingData(pathProcess, ...
-                                  nameData);
+pathProcessingData = getPathThisData(pathProcessing, ...
+                                     nameData);
+                         
+% existing uMaps
+pathCTuMaps     = getPathUMaps(pathProcessingData, ...
+                               nameCTuMaps); 
+                            
+                            
+% existing uMaps
+pathDXuMaps     = getPathUMaps(pathProcessingData, ...
+                               nameDXuMaps); 
+                                                   
+% radial vibes data                         
+pathRadVibeData = getPathRadVibeData(pathProcessingData, ...
+                                     nameRadVibe);
+
+% where created uMaps will go                               
+pathRadVibeUMaps = getPathRadVibeUMaps(pathProcessingData, ...
+                                       nameRadVibe, ...
+                                       uMapType);
+                                   
+%-------------------------------------------------
+%-------------------------------------------------
+                                   
 
 %--------------------------
 %--------------------------
 % Execute Pipeline 
 %
-
 %--------------------------
 % a) Copy raw data and uMaps to reconstruction location
 
 copyData(pathData,  ...
-         pathReconData);
-
+         pathProcessingData);
+  
+        
 %--------------------------     
 % b) Prepare custom uMaps
-prepareUMaps(uMapType,        ...
-             dataVersion,     ...
-             pathDict,        ...
-             pathDixonUMaps,  ...
-             pathCTUMaps,  ...
-             pathOutputUMaps, ...
-             pathRadialVibe);   
+prepareUMaps(uMapType,         ...
+             dataVersion,      ...
+             pathDXuMaps,      ...
+             pathCTuMaps,      ...
+             pathRadVibeUMaps, ...
+             pathRadVibeData);   
 
 %--------------------------         
 % c) Execute reconstruction process
-runReconstruction(pathProcess,nameData);
+runReconstruction(pathProcessing,nameData);
 
 %--------------------------
 % d) Copy the reconstructed data,  
 %    and umaps to the destination
 
-pathConvertedData = setPathConvertedOP(pathProcess, ...
-                                       nameData);
+pathConvertedData  = setPathConvertedOP(pathProcessing, ...
+                                        nameData);
 
-pathTransData  = setPathTransData(pathOutput, ...
-                                  nameData,  ...
-                                  uMapType);
-                                
-pathTransUMaps = setPathTransUMaps(pathOutput, ...
-                                   nameData,  ...
-                                   uMapType);
+pathCompletedData  = setPathTransData(pathCompleted, ...
+                                      nameData,  ...
+                                      uMapType);
+                               
+pathCompletedUMaps = setPathTransUMaps(pathCompleted, ...
+                                       nameData,  ...
+                                       uMapType);
 
 % copy data to transfer location
-copyData( pathConvertedData, pathTransData);
-
-% clean up ready for next pipeline
-rmdir(pathConvertedData,'s');
+copyData( pathConvertedData, pathCompletedData);
 
 % copy corresponding uMaps to 
 % transfer location
 
-if    (strcmp(uMapType,'DIX'))
-    
-    copyData( pathDixonUMaps, pathTransUMaps);
-    
-elseif(strcmp(uMapType,'CAT'))  
-    
-    copyData( pathCTUMaps, pathTransUMaps);
-
-% Radial VIBE uMap
-else
-    copyData( pathOutputUMaps, pathTransUMaps);
+switch uMapType
+    case 'DX'
+        copyData( pathDXuMaps, pathCompletedUMaps);
+    case 'CT'  
+        copyData( pathCTuMaps, pathCompletedUMaps);
+    otherwise
+        copyData( pathRadVibeUMaps, pathCompletedUMaps);
 end
 
 % clean up ready for next pipeline
-rmdir(pathProcess,'s');        
+% To Do: check on permissions 
+% pause with message if no 'write'
+rmdir(pathProcessing,'s');        
 
 end
 

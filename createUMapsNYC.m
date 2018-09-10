@@ -1,16 +1,17 @@
-function [ ] = createUMapsNYC( pathRadialVibe, ...
-                               pathOutputUMaps)
+function [ ] = createUMapsNYC( pathRadVibeData, ...
+                               pathRadVibeUMaps)
 % createUMapsNYC() make uMaps from Radial VIBE data 
 % Transform 3D golden angle Radial VIBE images
 % into DICOM uMaps to be passed to JSRecon12 
 %
-% gary.smith@ed.ac.uk   04 09 18
+% Adapted
+% gary.smith@ed.ac.uk   10 09 18
 %
 
 codePath = pwd;
 
-addpath( pathRadialVibe, ...
-         pathOutputUMaps );
+addpath( pathRadVibeData, ...
+         pathRadVibeUMaps );
 
 %--------------------------------
 % initialise constants
@@ -29,7 +30,7 @@ LAC_FAT         = 0.0854;
 %  Load dicom images
 %
 %  To Do: change to full paths
-cd( pathRadialVibe );  
+cd( pathRadVibeData );  
 %inputFileArray = ls('*IMA*');
 inputFileArray = ls;
 
@@ -113,7 +114,7 @@ end
 
 %-------------------------
 %  Save dicom series
-cd( pathOutputUMaps ) 
+cd( pathRadVibeUMaps ) 
 
 for iFile = 1:size(inputFileArray,1)-2
     
@@ -123,8 +124,8 @@ for iFile = 1:size(inputFileArray,1)-2
     
 end
 
-rmpath( pathRadialVibe, ...
-        pathOutputUMaps );
+rmpath( pathRadVibeData, ...
+        pathRadVibeUMaps );
     
 cd(codePath);
 

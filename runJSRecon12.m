@@ -1,20 +1,17 @@
-function statusJS = runJSRecon12( pathRecon, nameData )
+function statusJS = runJSRecon12( pathProcessing, nameData )
 % runJSRecon12  execute JSRecon12 on the system
 %
 % The status is returned for use with subsequent commands
 % System output can be suppressed
 %
-% gary.smith@ed.ac.uk 04 09 2018
+% gary.smith@ed.ac.uk   10 09 2018
 %
-% To do: filePathJSRecon12 is hard coded
-%        but this might be better set 
-%        from runManyPipelines()
+% Note: filePathJSRecon12 is hard coded
 
-
-% set to 1 to suppress system output
+% set to 0 to allow system output
 nullSystemOut = 1;
 
-pathData = [pathRecon,'\',nameData];
+pathData = [pathProcessing,'\',nameData];
 
 filePathJSRecon12 = 'C:\JSRecon12\JSRecon12.js';
 

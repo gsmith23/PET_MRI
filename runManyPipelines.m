@@ -1,6 +1,10 @@
+% runManyPipelines.m
+% Version 1.0
+%
 % Script for executing runPipeline() on multiple data sets 
 % and/or with multiple attenuation correction methods. 
 %
+%-------------------------------------------------------------
 % Description:
 %   This master script is used to control the running of 
 %   Siemens PET MRI (or CT) image reconstructions using
@@ -13,7 +17,7 @@
 %       Edinburgh (EDI), New York (NYU) 
 %
 % Author:
-%   gary.smith@ed.ac.uk   06 09 2018
+%   gary.smith@ed.ac.uk   10 09 2018
 %
 % Requirements:
 %   JSRecon12
@@ -27,24 +31,38 @@
 %
 %   DICOM dicionary (required for Radial Vibes method)
 %       C:\Docs\dicom-dict-4PETMRI.txt
+%
+% Note:
+%   At present uMaps and Radial Vibes folders
+%   are hardcoded in runPipeline
+%
+%-------------------------------------------------------------
 
-% Location of data source
-folderList = ['D:\Gary\PETMRI_TestData_B20P_Test2'; ...
-              'D:\Gary\PETMRI_TestData_B20P_Test3'];
+% Structure to contain 
+% Folder paths 
+% Attenuation Correction methods
 
-nFolders = length(folderList(:,1));
+% Location of data source 
+% Edit as appropriate
+data.folderList = ['D:\Gary\PETMRI_TestData_B20P_Test2'; ...
+                   'D:\Gary\PETMRI_TestData_B20P_Test3'];
+               
+nFolders = length(data.folderList(:,1));
 
 % DIX, CAT  - use existing uMaps
 % EDI, NYC  - create uMaps from Radial Vibe
-uMapTypeList = ['EDI';'NYC';'DIX'];
+% Edit as appropriate
+data.uMapTypeList = ['ED';'NY';'DX'];
 
-nTypes = length(uMapTypeList(:,1));
+nTypes = length(data.uMapTypeList(:,1));
 
+% Execute image reconstructions on
+% folderList using all uMaps methods
 for iFolder = 1 : nFolders
-    for iUMapsType = 1:nTypes
+    for iType = 1 : nTypes
     
-     runPipeline(uMapTypeList(iUMapsType,:), ...
-                 folderList(iFolder,:));
+     runPipeline(data.uMapTypeList(iType,:), ...
+                 data.folderList(iFolder,:));
 
     end % for iUMapsType
 end

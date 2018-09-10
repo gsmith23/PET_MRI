@@ -1,13 +1,14 @@
 function [] = prepareUMapsHeaders( pathDixonUMaps,   ...
-                                   pathOutputUMaps,  ...
+                                   pathCreatedUMaps,  ...
                                    uMapType)
 % prepareUMapsHeaders() customise header info using Dixon header and dictionary
+% This is necessary for consistency with scanner uMaps.
 %
-% gary.smith@ed.ac.uk   06 09 2018
+% gary.smith@ed.ac.uk   10 09 2018
 %
-% pathDixonUMaps  - absolute path to Dixon UMaps 
-% pathOutputUMaps - absolute path for UMaps header destination
-% uMapType        - 'EDI','NYC' (Radial Vibe) or 'CT' 
+% pathDixonUMaps   - absolute path to Dixon UMaps 
+% pathCreatedUMaps - absolute path of Created UMaps
+% uMapType         - 'EDI','NYC' (Radial Vibe) or 'CT' 
 %
 % Known issues - warnings are given for dicomwrite, this appears to cause
 % no issues and is a known bug in Matlab. Warnings have been silenced.
@@ -15,7 +16,7 @@ function [] = prepareUMapsHeaders( pathDixonUMaps,   ...
 codePath = pwd;
 
 addpath( pathDixonUMaps, ...
-         pathOutputUMaps );
+         pathCreatedUMaps );
      
 % Dictionary for header file creation
 %   To Do: add check for dictionary
@@ -32,7 +33,7 @@ cd( pathDixonUMaps );
 dixonUMapsArray = ls('*.IMA');
 
 % Folder for created Radial Vibe or CT uMaps
-cd( pathOutputUMaps );
+cd( pathCreatedUMaps );
 
 radialVibeUMapsArray = ls('*.dcm');
 
@@ -106,7 +107,7 @@ for iFile=1:size(radialVibeUMapsArray,1)
 end
 
 rmpath( pathDixonUMaps, ...
-        pathOutputUMaps );
+        pathCreatedUMaps );
      
 cd( codePath );
 

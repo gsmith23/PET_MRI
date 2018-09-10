@@ -1,6 +1,12 @@
-
 function [soft_tissue, fat] = createUMapsMR(image_in, a, b, varargin)
-% createUMapMR soft tissue and fat maps
+% createUMapMR()    make soft tissue and fat uMaps
+%
+% Used as input to NYC uMaps production
+%
+% Adapted
+% gary.smith@ed.ac.uk   10 09 2018
+
+% Input arguments
 %  a, b fractions of maximum pixel intensity
 
 n_slices = size(image_in,3);

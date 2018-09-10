@@ -1,4 +1,3 @@
-
 function image_smooth = imageSmooth2D(image, fov, kernel_fwhm)
 
 
