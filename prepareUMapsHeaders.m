@@ -1,7 +1,6 @@
 function [] = prepareUMapsHeaders( pathDixonUMaps,   ...
                                    pathOutputUMaps,  ...
-                                   uMapType,         ...
-                                   pathDict)
+                                   uMapType)
 % prepareUMapsHeaders() customise header info using Dixon header and dictionary
 %
 % gary.smith@ed.ac.uk   06 09 2018
@@ -17,6 +16,10 @@ codePath = pwd;
 
 addpath( pathDixonUMaps, ...
          pathOutputUMaps );
+     
+% Dictionary for header file creation
+%   To Do: add check for dictionary
+pathDict = 'C:\Docs\dicom-dict-4PETMRI.txt';
 
 disp( ' Using dicom dictionary... ' );
 disp( ['   ', pathDict] );

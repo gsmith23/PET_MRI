@@ -6,8 +6,8 @@ function [ ] = runPipeline(uMapType, ...
 %
 % Description
 %
-%   This program is used to produce an image reconstruction  
-%   for PET MRI data. Input arguments are used to specify 
+%   This program is used to produce image reconstructions  
+%   for PET MRI (or CT) data. Input arguments are used to specify 
 %   which input data and attenuation correction method to use.
 % 
 %   The data and uMaps are initially copied to a processing 
@@ -17,14 +17,14 @@ function [ ] = runPipeline(uMapType, ...
 %   provided.
 %
 %   Once the data and uMaps are prepared JSRecon12 is
-%   executed on the data in the processing folder. This 
+%   executed on the data in the Processing folder. This 
 %   results in the production of e7_tools scripts.
 %
 %   The e7_tools scripts are then executed which results
 %   in the production of image reconstructions.
 %
 %   The image reconstructions are copied to an output folder
-%   (Output) with the corresponding uMaps ready for transfer.
+%   (Processing) with the corresponding uMaps ready for transfer.
 % 
 % ---------------
 % Input arguments 
@@ -38,7 +38,7 @@ function [ ] = runPipeline(uMapType, ...
 % ---------------
 % Author
 %
-%   gary.smith@ed.ac.uk 04 09 201
+%   gary.smith@ed.ac.uk     07 09 201
 %
 %--------------------------
 %--------------------------
@@ -49,15 +49,13 @@ function [ ] = runPipeline(uMapType, ...
 %   to runManyPipelines.m
 %   and add as input variables:
 %
-%   Change pathRecon and pathTrans to 
+%   Change pathProcessing and pathTrans to 
 %   paths relative to 'drive'.
 %
 %--------------------------
 
 
-% Dictionary for header file creation
-%   To Do: add check for dictionary
-pathDict = 'C:\Docs\dicom-dict-4PETMRI.txt';
+
 
 % uMaps and Radial Vibes
 %   To Do:  initialise in runManyPipelines()
@@ -75,7 +73,7 @@ dataVersion = 'B20';
 
 pathRootFolder = getPathRootFolder(pathData);
 
-% Location for Reconstructing Data
+% Location for Processingstructing Data
 pathProcess = 'Processing';
 pathProcess = [pathRootFolder,'\',pathProcess]; 
 
@@ -104,7 +102,7 @@ pathOutputUMaps = setPathOutputUMaps(pathProcess,      ...
                                      nameRadialVibe, ...
                                      uMapType);
 
-pathReconData  = setPathReconData(pathProcess, ...
+pathProcessingData  = setPathProcessingData(pathProcess, ...
                                   nameData);
 
 %--------------------------
