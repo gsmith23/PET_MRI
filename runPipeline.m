@@ -147,16 +147,16 @@ runReconstruction(pathProcessing,nameData);
 % d) Copy the reconstructed data,  
 %    and umaps to the destination
 
-pathConvertedData  = setPathConvertedOP(pathProcessing, ...
+pathConvertedData  = getPathConvertedOP(pathProcessing, ...
                                         nameData);
 
-pathCompletedData  = setPathTransData(pathCompleted, ...
-                                      nameData,  ...
-                                      uMapType);
+pathCompletedData  = getPathCompletedData(pathCompleted, ...
+                                          nameData,      ...
+                                          uMapType);
                                
-pathCompletedUMaps = setPathTransUMaps(pathCompleted, ...
-                                       nameData,  ...
-                                       uMapType);
+pathCompletedUMaps = getPathCompletedUMaps(pathCompleted, ...
+                                           nameData,      ...
+                                           uMapType);
 
 % copy data to transfer location
 copyData( pathConvertedData, pathCompletedData);
@@ -166,9 +166,9 @@ copyData( pathConvertedData, pathCompletedData);
 
 switch uMapType
     case 'DX'
-        copyData( pathDXuMaps, pathCompletedUMaps);
+        copyData( pathDXuMaps,      pathCompletedUMaps);
     case 'CT'  
-        copyData( pathCTuMaps, pathCompletedUMaps);
+        copyData( pathCTuMaps,      pathCompletedUMaps);
     otherwise
         copyData( pathRadVibeUMaps, pathCompletedUMaps);
 end
