@@ -1,11 +1,10 @@
-function [ ] = createUMapsEDI( dataVersion,    ...
-                               pathRadVibeData, ...
+function [ ] = createUMapsEDI( pathRadVibeData, ...
                                pathRadVibeUMaps)
 % createUMapsEDI() Use Radial Vibes data to create uMaps
 %   dataVersion is used to dictate thresholds
 % 
 % Adapted
-% gary.smith@ed.ac.uk   10 09 2018
+% gary.smith@ed.ac.uk   11 09 2018
 %
 % Notes: extract data version from DICOM 
 %        to reduce number of i/p arguments   
@@ -16,26 +15,25 @@ codePath = pwd;
 %         to prevent having to cd
 addpath( pathRadVibeData, ...
          pathRadVibeUMaps );
-
-%---------------------
-%  set thresholds
-if    ( strcmp(dataVersion,'B20' ))
-    
-    tissueLow  = 101;
-    tissueHigh = 450;
-    
-elseif( strcmp(dataVersion,'E11') )
-    
-    tissueLow  = 64;
-    tissueHigh = 320;
-    
-end
-
+     
 % Create array of radial vibe files
 % To do: change to full file paths
 cd(pathRadVibeData);
 inputFileArray = ls('*IMA*');
 
+info =  dicominfo(inputFileArray(1,:));
+
+dataVersion  = info.ImplementationVersionName;
+
+%---------------------
+%  set thresholds
+
+[tissueLow, tissueHigh] = getThresholdsEDI(dataVersion);
+
+
+
+%disp(dataVersion);
+        
 % To do: test requirement for clear
 clear ima_in info_in
 

@@ -1,5 +1,4 @@
 function [ ] = prepareUMaps( uMapType,         ...
-                             dataVersion,      ...
                              pathDXuMaps,      ...
                              pathCTuMaps,      ...
                              pathRadVibeUMaps, ...
@@ -11,9 +10,9 @@ function [ ] = prepareUMaps( uMapType,         ...
 %   Processing folder.
 %
 %   If creating Radial Vibe uMaps one of two  
-%   variations is implemented (NYC or EDI).
+%   variations is implemented (NYC/NY or EDI/ED).
 %
-% gary.smith@ed.ac.uk   10 09 2018
+% gary.smith@ed.ac.uk   11 09 2018
     
 disp( ' ' );
 
@@ -22,73 +21,54 @@ switch uMapType
         disp( ' Using Dixon uMaps ' );
         disp( ' ' );
         
-        if(exist(pathCTuMaps,'dir'))
-            rmdir(pathCTuMaps,'s');
-        end
-        
+        rmdirIfExisting(pathCTuMaps);
+                
     case 'CT'
         disp( ' Using CT uMaps ' );
         disp( ' ' );
-        
-        if(exist(pathDXuMaps,'dir'))
-            rmdir(pathDXuMaps,'s');
-        end
+               
+        rmdirIfExisting(pathDXuMaps,'s');
         
     otherwise % Radial Vibe creation
         
-        % make folder for created uMaps
-        if(~exist(pathRadVibeUMaps,'dir'))
-             mkdir(pathRadVibeUMaps); 
-        end
-        
-        %-------------------------------
-        % NYC uMaps creation
-        if    ( strcmp( uMapType, 'NY'   ) )
+        mkdirIfAbsent(pathRadVibeUMaps);
+                       
+        switch uMapType
+            case 'NY'  
     
-        disp( ' Creating NYC uMaps ' );
-        disp( ' ' );
+                disp( ' Creating NYC uMaps ' );
+                disp( ' ' );
         
-        createUMapsNYC( pathRadVibeData , ...
-                        pathRadVibeUMaps);
+                createUMapsNYC( pathRadVibeData , ...
+                                pathRadVibeUMaps);
         
-        %-------------------------------
-        % EDI uMaps creation
-        elseif( strcmp( uMapType, 'ED'   ) )
+            case 'ED' 
     
-        disp( ' Creating EDI uMaps ' );
-        disp( ' ' );
+                disp( ' Creating EDI uMaps ' );
+                disp( ' ' );
         
-        createUMapsEDI( dataVersion,     ...
-                        pathRadVibeData , ...
-                        pathRadVibeUMaps); 
-        else 
+                createUMapsEDI( pathRadVibeData , ...
+                                pathRadVibeUMaps); 
+            otherwise 
             
-        disp( '  ' );
-        disp( ' Invalid uMapType ' );
+            disp( '  ' );
+            error( ' Unknown uMapType ' );
         
-        % break here
-        
-        end  
+        end  % switch uMapType (radial vibe) 
     
-        %-------------------------------
-        % header preparation method is similar 
-        % for both Radial Vibes methods
-        prepareUMapsHeaders( pathDXuMaps,   ...
+        % radial vibe header prep
+        prepareUMapsHeaders( pathDXuMaps,       ...
                              pathRadVibeUMaps,  ...
                              uMapType);    
     
-        if(exist(pathDXuMaps,'dir'))
-          rmdir(pathDXuMaps,'s');
-        end
-    
-        if(exist(pathCTuMaps,'dir'))
-            rmdir(pathCTuMaps,'s');
-        end
+        rmdirIfExisting(pathDXuMaps);
+          
+        rmdirIfExisting(pathCTuMaps);
+       
         
-end % switch
+end % switch uMapType (any)
 
-    if(exist(pathRadVibeData,'dir'))
-        rmdir(pathRadVibeData,'s');
-    end
+    rmdirIfExisting(pathRadVibeData);
+    
 
 end % function
