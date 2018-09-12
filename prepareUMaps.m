@@ -27,7 +27,7 @@ switch uMapType
         disp( ' Using CT uMaps ' );
         disp( ' ' );
                
-        rmdirIfExisting(pathDXuMaps,'s');
+        rmdirIfExisting(pathDXuMaps);
         
     otherwise % Radial Vibe creation
         

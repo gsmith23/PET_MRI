@@ -1,5 +1,5 @@
 function [ ] = runAllACPipelines( pathToData )
-% runManyACPipelines() execute runACPipeline once for all AC methods
+% runAllACPipelines() execute runACPipeline once for all AC methods
 %
 % The AC methods are applied according to which folder/s
 % are present in pathToData
@@ -8,22 +8,27 @@ function [ ] = runAllACPipelines( pathToData )
 %---------------------------------------
 % Identify contents of pathToData folder
 % to determine all possible AC methods
-%
 
 subFolderList = ls(pathToData);
 nSubFolders = length(subFolderList(:,1));
 
-% initialise first (dummy) element
-uMapsList = ['XX'];
+% Create list of uMaps
+% (initialise first (dummy) element)
+uMapsList = 'XX';
 rawDataFolder = [];
-% 
+
+% Supported uMaps methods 
+% [to be included] 
 % DX  - use existing Dixon uMaps
-% DN  - use existing Dixon No Bone uMaps
-% DB  - use existing Dixon Bone uMaps
-% DX  - use existing CT uMaps
+% [DN  - use existing Dixon No Bone uMaps]
+% [DB  - use existing Dixon Bone uMaps]
+% ML  - use existing MLAA uMaps
+% CT  - use existing CT uMaps
 % ED  - create uMaps using Edinburgh method
 % NY  - create uMaps using New York method
 
+% Search subfolder names to identify
+% folder type (contents)
 for iSF = 1 : nSubFolders
     
     subFolder  = subFolderList(iSF,:);

@@ -18,7 +18,7 @@
 %       Edinburgh (ED), New York (NY) 
 %
 % Author:
-%   gary.smith@ed.ac.uk   12 09 2018
+%   gary.smith@ed.ac.uk   13 09 2018
 %
 % Requirements:
 %   JSRecon12
@@ -33,9 +33,6 @@
 %   DICOM dicionary (required for Radial Vibes method)
 %       C:\Docs\dicom-dict-4PETMRI.txt
 %
-% Note:
-%   At present uMaps and Radial Vibes folders
-%   are hardcoded in runAPipeline
 %
 %-------------------------------------------------------------
 
@@ -51,13 +48,14 @@ disp('                                               ');
 %---------------------------------------
 % Location of master folder containing multiple 
 % folders of data and uMaps in ready to process 
-% convention
-pathToReady = 'D:\Gary\Ready\';
-
+% convention.
+%pathToReady = 'D:\Gary\Ready\';
+pathToReady  = 'C:\Data\JSRecon12-TestData\Ready\';
 %---------------------------------------
 % List of folders in pathToReady 
-% ensure name includes the string 'Data' 
+% ensuring name includes the string 'Data' 
 % (to omit: ., ..)
+%   To do: test unique identifier 'Data'
 folderList = ls([pathToReady,'*Data*']);
 
 nFolders = length(folderList(:,1));
