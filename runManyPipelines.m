@@ -44,11 +44,11 @@
 
 % Location of data source 
 % Edit as appropriate
-data.folderList = ['D:\Gary\PETMRI_TestData_B20P_Test2'; ...
-                   'D:\Gary\PETMRI_TestData_B20P_Test3'];
+%data.folderList = ['D:\Gary\PETMRI_TestData_B20P_Test2'; ...
+%                   'D:\Gary\PETMRI_TestData_B20P_Test3'];
                
-data.folderList = ['PETCT_TestData_G60_Test1'; ...
-                   'PETCT_TestData_G60_Test2'];
+data.folderList = ['D:\Gary\PETCT_TestData_G60_Test1'; ...
+                   'D:\Gary\PETCT_TestData_G60_Test2'];
 
 
 nFolders = length(data.folderList(:,1));
@@ -56,7 +56,8 @@ nFolders = length(data.folderList(:,1));
 % DIX, CAT  - use existing uMaps
 % EDI, NYC  - create uMaps from Radial Vibe
 % Edit as appropriate
-data.uMapTypeList = ['ED';'NY';'DX'];
+%data.uMapTypeList = ['ED';'NY';'DX'];
+data.uMapTypeList = ['CT'];
 
 nTypes = length(data.uMapTypeList(:,1));
 
