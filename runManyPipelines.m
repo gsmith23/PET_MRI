@@ -12,12 +12,12 @@
 %
 %   Attenuation correction can be applied by: 
 %   1) using existing uMaps
-%       Dixon (DIX), CT (CAT), ...
+%       Dixon (DX), CT (CT), ...
 %   2) creating uMaps using Radial/STAR Vibes data
-%       Edinburgh (EDI), New York (NYU) 
+%       Edinburgh (ED), New York (NY) 
 %
 % Author:
-%   gary.smith@ed.ac.uk   10 09 2018
+%   gary.smith@ed.ac.uk   12 09 2018
 %
 % Requirements:
 %   JSRecon12
@@ -42,32 +42,47 @@
 % Folder paths 
 % Attenuation Correction methods
 
-% Location of data source 
-% Edit as appropriate
-%data.folderList = ['D:\Gary\PETMRI_TestData_B20P_Test2'; ...
-%                   'D:\Gary\PETMRI_TestData_B20P_Test3'];
-               
-data.folderList = ['D:\Gary\PETCT_TestData_G60_Test1'; ...
-                   'D:\Gary\PETCT_TestData_G60_Test2'];
+% Location of master folder containing multiple folders of
+% data and uMaps in ready to process convention
+pathToReadyData = 'C:\Data\JSRecon12-TestData\Ready\';
+
+%---------------------------------------
+% Data Folder Paths
+% List of folders in pathToReady (omitting ., ..)
+scanFolders = ls([pathToReadyData,'*Data*']);
+
+nFolders = length(scanFolders(:,1));
+%---------------------------------------
 
 
-nFolders = length(data.folderList(:,1));
+%---------------------------------------
+% uMaps
+% DX, CT  - use existing uMaps
+% ED, NY  - create uMaps from Radial Vibe
+uMapsMasterList = ['ED';'NY';'DX'];
 
-% DIX, CAT  - use existing uMaps
-% EDI, NYC  - create uMaps from Radial Vibe
-% Edit as appropriate
-%data.uMapTypeList = ['ED';'NY';'DX'];
-data.uMapTypeList = ['CT'];
+% initialise dataStruct
+dataStruct(nFolders).pathToData = scanFolders(nFolders,:);
+%dataStruct.subFolders(10) = zeros(:,:,:);  
 
-nTypes = length(data.uMapTypeList(:,1));
-
-% Execute image reconstructions on
-% folderList using all uMaps methods
 for iFolder = 1 : nFolders
-    for iType = 1 : nTypes
-    
-     runPipeline(data.uMapTypeList(iType,:), ...
-                 data.folderList(iFolder,:));
-
-    end % for iUMapsType
+    scanFolders(iFolder,:) = [pathToReadyData(iFolder,:),scanFolders(iFolder,:)];
+    dataStruct(iFolder).pathToData = scanFolders(iFolder,:);
+    dataStruct(iFolder).subFolders = ls(scanFolders(iFolder,:));
 end
+
+%{dataStruct.pathToData}
+{dataStruct(:,1).subFolders};
+
+% nTypes = length(data.uMapTypeList(:,1));
+% 
+% % Execute image reconstructions on
+% % folderList using all uMaps methods
+% for iFolder = 1 : nFolders
+%     for iType = 1 : nTypes
+%     
+%      runPipeline(data.uMapTypeList(iType,:), ...
+%                  data.folderList(iFolder,:));
+% 
+%     end % for iUMapsType
+% end
