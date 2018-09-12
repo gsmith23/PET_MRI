@@ -10,7 +10,7 @@ switch dataVersion
         low  = 101;
         high = 450;
     
-    case 'MR_E11P' % To do: check this
+    case 'MR_VE11P' 
         
         low  = 64;
         high = 320;

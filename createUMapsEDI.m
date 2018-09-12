@@ -28,9 +28,11 @@ dataVersion  = info.ImplementationVersionName;
 %---------------------
 %  set thresholds
 
+cd(codePath);
+
 [tissueLow, tissueHigh] = getThresholdsEDI(dataVersion);
 
-
+cd(pathRadVibeData);
 
 %disp(dataVersion);
         

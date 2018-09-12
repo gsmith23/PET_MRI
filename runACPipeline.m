@@ -38,7 +38,7 @@ function runACPipeline(uMapType, ...
 % ---------------
 % Author
 %
-%   gary.smith@ed.ac.uk     10 09 201
+%   gary.smith@ed.ac.uk     12 09 201
 %
 %--------------------------
 %--------------------------
@@ -59,13 +59,7 @@ function runACPipeline(uMapType, ...
 
 %
 % uMaps and Radial Vibes
-%   To Do:  initialise in runManyPipelines()
-%           and pass as argument
-%           Ultimately standardise by searching 
-%           folder names for string comparisons
-%           using this to change folder names 
-%           to the same convention for all data.
-%
+%  folder names
 nameDXuMaps  = 'DX'; 
 nameCTuMaps  = 'CT';  
 nameRadVibe  = 'RV'; 
@@ -81,9 +75,6 @@ pathRootFolder = getPathRootFolder(pathData);
 
 % Location for processing data
 pathProcessing = getPathProcessing(pathRootFolder);
-
-% Location to store converted data ready for transfer
-pathCompleted  = getPathCompleted(pathRootFolder);
 
 % name of Data (folder)  
 nameData = getNameData(pathData);    
@@ -142,6 +133,9 @@ runReconstruction(pathProcessing,nameData);
 
 pathConvertedData  = getPathConvertedFolders(pathProcessing, ...
                                              nameData);
+
+% Location to store converted data ready for transfer
+pathCompleted  = getPathCompleted(pathRootFolder);
 
 pathCompletedData  = getPathCompletedData(pathCompleted, ...
                                           nameData,      ...
