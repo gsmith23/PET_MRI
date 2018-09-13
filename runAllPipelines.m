@@ -51,6 +51,7 @@ disp('                                               ');
 % convention.
 %pathToReady = 'D:\Gary\Ready\';
 pathToReady  = 'C:\Data\JSRecon12-TestData\Ready\';
+
 %---------------------------------------
 % List of folders in pathToReady 
 % ensuring name includes the string 'Data' 

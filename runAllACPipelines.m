@@ -17,18 +17,25 @@ nSubFolders = length(subFolderList(:,1));
 uMapsList = 'XX';
 rawDataFolder = [];
 
-% Supported uMaps methods 
-% [to be included] 
-% DX  - use existing Dixon uMaps
-% [DN  - use existing Dixon No Bone uMaps]
-% [DB  - use existing Dixon Bone uMaps]
+% Type of uMaps
+
+% Use existing uMaps
+% DX  - use Dixon uMaps
 % ML  - use existing MLAA uMaps
 % CT  - use existing CT uMaps
+% [to be included] 
+% [DN  - use existing Dixon No Bone uMaps]
+% [DB  - use existing Dixon Bone uMaps]
+% [CP  - use psuedo CT from MR]
+
+% Create uMaps using Radial VIbes Data 'RV'
 % ED  - create uMaps using Edinburgh method
 % NY  - create uMaps using New York method
 
 % Search subfolder names to identify
 % folder type (contents)
+% Note: this requires the folders in Ready to
+% follow the naming convention
 for iSF = 1 : nSubFolders
     
     subFolder  = subFolderList(iSF,:);
