@@ -3,10 +3,10 @@
 %
 % Script for executing Attenuation Correction (AC) 
 % pipeline on multiple data sets and/or
-% with multiple attenuation correction methods. 
+% with multiple AC methods. 
 %
 %-------------------------------------------------------------
-% Description:
+% Full Description:
 %   This master script is used to control the running of 
 %   Siemens PET MRI (or CT) image reconstructions using
 %   JSRecon12 and e7_tools.
@@ -15,10 +15,10 @@
 %   1) using existing uMaps
 %       Dixon (DX), CT (CT), ...
 %   2) creating uMaps using Radial/STAR Vibes data
-%       Edinburgh (ED), New York (NY) 
+%       Edinburgh (ED) & New York (NY) versions
 %
 % Author:
-%   gary.smith@ed.ac.uk   12 09 2018
+%   gary.smith@ed.ac.uk   13 09 2018
 %
 % Requirements:
 %   JSRecon12
