@@ -17,7 +17,7 @@ switch dataVersion
         
     otherwise
         
-        error('Unknown data version');
+        error(' Unknown data version');
         
 end %  switch
 

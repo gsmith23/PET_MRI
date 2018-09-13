@@ -10,27 +10,28 @@ function [ ] = runAllACPipelines( pathToData )
 % to determine all possible AC methods
 
 subFolderList = ls(pathToData);
-nSubFolders = length(subFolderList(:,1));
+nSubFolders   = length(subFolderList(:,1));
 
 % Create list of uMaps
-% (initialise first (dummy) element)
-uMapsList = 'XX';
+%   e.g. ['DX','CT','ED','NY']
+%   initialise first (dummy) element
+uMapsList     = 'XX';
 rawDataFolder = [];
 
 % Type of uMaps
 
 % Use existing uMaps
-% DX  - use Dixon uMaps
-% ML  - use existing MLAA uMaps
-% CT  - use existing CT uMaps
+% DX  - Dixon uMaps
+% ML  - MLAA uMaps
+% CT  - CT uMaps
 % [to be included] 
-% [DN  - use existing Dixon No Bone uMaps]
-% [DB  - use existing Dixon Bone uMaps]
-% [CP  - use psuedo CT from MR]
+% [DN  - Dixon No Bone uMaps]
+% [DB  - Dixon Bone uMaps]
+% [CP  - psuedo CT from MR]
 
 % Create uMaps using Radial VIbes Data 'RV'
-% ED  - create uMaps using Edinburgh method
-% NY  - create uMaps using New York method
+% ED  - Edinburgh method
+% NY  - York method
 
 % Search subfolder names to identify
 % folder type (contents)
