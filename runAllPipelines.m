@@ -33,7 +33,6 @@
 %   DICOM dicionary (required for Radial Vibes method)
 %       C:\Docs\dicom-dict-4PETMRI.txt
 %
-%
 %-------------------------------------------------------------
 
 
@@ -59,7 +58,7 @@ pathToReady  = 'C:\Data\JSRecon12-TestData\Ready\';
 %   To do: test unique identifier 'Data'
 folderList = ls([pathToReady,'*Data*']);
 
-nFolders = length(folderList(:,1));
+nFolders   = length(folderList(:,1));
 
 %---------------------------------------
 % Display the folder list

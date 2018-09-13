@@ -1,6 +1,6 @@
 function runACPipeline(uMapType, ...
                        pathData)
-% runPipeline() execute PET MRI reconstruction pipeline
+% runACPipeline() execute PET MRI reconstruction pipeline
 % 
 % ---------------
 %
@@ -43,20 +43,6 @@ function runACPipeline(uMapType, ...
 %--------------------------
 %--------------------------
 %   Initialise Variables
-%
-% To do: 
-%   Move uMaps and Radial Vibes folders 
-%   to runManyPipelines.m
-%   and add as input variables:
-%
-%   Only copy data and/or uMaps relevant to the 
-%   uMap type to Processing folder
-%
-%   Change pathProcessing and pathTrans to 
-%   paths relative to root folder
-%
-%--------------------------
-
 %
 % uMaps and Radial Vibes
 %  folder names
