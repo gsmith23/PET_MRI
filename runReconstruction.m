@@ -1,4 +1,4 @@
-function runReconstruction( pathRecon, nameData)
+function runReconstruction( pathProcessing, nameData)
 % runReconstruction() executes runJSRecon12 then runE7Tools
 % simple function to run the reconstruction process
 % 
@@ -7,10 +7,10 @@ function runReconstruction( pathRecon, nameData)
 
 disp(' ');
 disp(' path to data:');
-disp(['   ',pathRecon, '\', nameData]);
+disp(['   ',pathProcessing, '\', nameData]);
 
 % run JSRecon12 
-statusJS = runJSRecon12(pathRecon, nameData);
+statusJS = runJSRecon12(pathProcessing, nameData);
 
 disp(' ');
 
@@ -23,7 +23,7 @@ end
 disp(' ');
 
 % run E7Tools - if JSRecon12 successful
-statusE7 = runE7Tools(pathRecon, nameData, statusJS);
+statusE7 = runE7Tools(pathProcessing, nameData, statusJS);
 
 disp(' ');
 

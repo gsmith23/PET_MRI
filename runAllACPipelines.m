@@ -4,6 +4,7 @@ function [ ] = runAllACPipelines( pathToData )
 % The AC methods are applied according to which folder/s
 % are present in pathToData
 %
+% gary.smith@ed.ac.uk   17 09 2018
 
 %---------------------------------------
 % Identify contents of pathToData folder
@@ -12,11 +13,9 @@ function [ ] = runAllACPipelines( pathToData )
 subFolderList = ls(pathToData);
 nSubFolders   = length(subFolderList(:,1));
 
+%-----------------------------
 % Create list of uMaps
 %   e.g. ['DX','CT','ED','NY']
-%   initialise first (dummy) element
-uMapsList     = 'XX';
-rawDataFolder = [];
 
 % Type of uMaps
 
@@ -32,6 +31,10 @@ rawDataFolder = [];
 % Create uMaps using Radial VIbes Data 'RV'
 % ED  - Edinburgh method
 % NY  - York method
+
+%   initialise first (dummy) element
+uMapsList     = 'XX';
+rawDataFolder = [];
 
 % Search subfolder names to identify
 % folder type (contents)
@@ -70,6 +73,12 @@ disp(['  ',rawDataFolder]);
 % ED, NY  - create uMaps from Radial Vibe
 
 nACs = length(uMapsList(:,1));
+
+disp(' ');
+disp(' List of AC methods:')
+for iAC = 1 : nACs
+    disp(['  ',uMapsList(iAC,:)]);
+end
 
 for iAC = 1 : nACs
    

@@ -1,5 +1,5 @@
-function copyData( pathFrom, ...
-                   pathTo)
+function [] = copyData( pathFrom, ...
+                        pathTo)
 % copyData() make a copy of the data folder 
 %
 % pathFrom - absolute path to folder containing data 
@@ -8,12 +8,22 @@ function copyData( pathFrom, ...
 % The destination folder will be created if
 % it does not already exist
 %
-% gary.smith@ed.ac.uk 29 08 2018
+% gary.smith@ed.ac.uk   17 09 2018
 %
 % To do - Test alternative protocols: 
 %         robocopy, python script, bbftp
 
-copyfile(pathFrom,pathTo);
-    
+
+robo = 0;
+
+if(robo)
+    options  = '/E /NFL /NDL /NJH';
+    command  = ['ROBOCOPY ', pathFrom,' ', pathTo,' ', options];
+    system(command);
+else
+    pathTo = ['\\?\',pathTo];
+    copyfile(pathFrom,pathTo);
+end
+
 end
 
