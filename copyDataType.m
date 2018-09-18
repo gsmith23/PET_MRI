@@ -22,7 +22,7 @@ function [] = copyDataType( pathFrom, ...
 
 switch (type)
     case 1
-        pathTo = ['\\?\',pathTo];
+        %pathTo = ['\\?\',pathTo]; % external USB
         copyfile(pathFrom,pathTo);
     case 2
         options  = '/E /NFL /NDL /NJH';
