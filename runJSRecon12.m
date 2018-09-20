@@ -1,3 +1,4 @@
+
 function statusJS = runJSRecon12( pathProcessing, nameData )
 % runJSRecon12  execute JSRecon12 on the system
 %
@@ -16,6 +17,8 @@ pathData = [pathProcessing,'\',nameData];
 filePathJSRecon12 = 'C:\JSRecon12\JSRecon12.js';
 
 runCommand = ['cscript ', filePathJSRecon12,' ', pathData];
+
+%runCommand = ['echo %NUMBER_OF_PROCESSORS%'];
 
 disp(' ');
 disp(' executing: ')

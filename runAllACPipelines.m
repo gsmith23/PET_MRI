@@ -48,11 +48,15 @@ for iSF = 1 : nSubFolders
     switch folderType
         case 'DX'
             uMapsList = [uMapsList; 'DX'];
+        case 'DN'
+            uMapsList = [uMapsList; 'DN'];
         case 'CT'
             uMapsList = [uMapsList; 'CT'];
         case 'ML'
             uMapsList = [uMapsList; 'ML'];
         case 'RV'
+            uMapsList = [uMapsList; 'ED'; 'NY'];
+        case 'SV'
             uMapsList = [uMapsList; 'ED'; 'NY'];
         case 'Da'
             rawDataFolder = subFolder;
@@ -69,8 +73,8 @@ disp(['  ',rawDataFolder]);
 
 %---------------------------------------
 % uMaps
-% DX, CT  - use existing uMaps
-% ED, NY  - create uMaps from Radial Vibe
+% DX, CT  (e.g.) - use existing uMaps
+% ED, NY  (e.g.) - create uMaps from Radial Vibe
 
 nACs = length(uMapsList(:,1));
 

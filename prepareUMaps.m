@@ -23,12 +23,11 @@ switch uMapType
         
         rmdirIfExisting(pathCTuMaps);
                 
-    case 'CT'
-        disp( ' Using CT uMaps ' );
+    case 'DN'%!!!!!!!!!!! HACK
+        disp( ' Using DN uMaps ' );
         disp( ' ' );
                
         rmdirIfExisting(pathDXuMaps);
-        
     otherwise % Radial Vibe creation
         
         mkdirIfAbsent(pathRadVibeUMaps);

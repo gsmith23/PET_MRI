@@ -6,14 +6,16 @@ function folderType = getFolderType( subFolder )
 
 % folderType options 
 % DX  - Dixon uMaps
+% DX  - Dixon No Bone uMaps
 % ML  - MLAA uMaps
 % CT  - CT uMaps
 % RV  - Radial Vibes data
+% SV  - Star Vibes data
 % Da  - Raw Data 
 
 
 % strings to search in subFolder name for
-typeArray = ['DX';'ML';'CT';'RV';'Da'];
+typeArray = ['DX';'DN';'ML';'CT';'RV';'SV';'Da'];
 
 nTypes = length(typeArray(:,1));
 
@@ -23,7 +25,7 @@ folderType = '';
    
         type = typeArray(iType,:);
     
-        if( ~isempty( strfind(subFolder,type) ) )
+        if( contains( subFolder,type ) )
   
             folderType = type;
         

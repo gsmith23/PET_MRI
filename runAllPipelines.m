@@ -49,8 +49,8 @@ disp('                                               ');
 % folders of data and uMaps in ready to process 
 % convention.
 %pathToReady = 'D:\Gary\Ready\';
-pathToReady  = 'C:\Data\JSRecon12-TestData\Ready\';
-
+%pathToReady  = 'C:\Data\JSRecon12-TestData\Ready\';
+pathToReady  = 'F:\Gary_E7\Ready\';
 %---------------------------------------
 % List of folders in pathToReady 
 % ensuring name includes the string 'Data' 

@@ -46,9 +46,13 @@ function runACPipeline(uMapType, ...
 %
 % uMaps and Radial Vibes
 %  folder names
-nameDXuMaps  = 'DX'; 
-nameCTuMaps  = 'CT';  
-nameRadVibe  = 'RV'; 
+nameDXuMaps  = 'DX';
+
+%!!!!!!!!!!!! HACK
+nameCTuMaps  = 'DN';  
+
+%!!!!!!!!!!!! HACK
+nameRadVibe  = 'SV'; 
 
 %-------------------------------------------------
 %-------------------------------------------------
@@ -140,7 +144,7 @@ copyData( pathConvertedData, pathCompletedData);
 switch uMapType
     case 'DX'
         copyData( pathDXuMaps,      pathCompletedUMaps);
-    case 'CT'  
+    case 'DN' % !!!!!!!!!!!!!!!! HACK  
         copyData( pathCTuMaps,      pathCompletedUMaps);
     otherwise
         copyData( pathRadVibeUMaps, pathCompletedUMaps);
