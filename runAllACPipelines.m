@@ -1,10 +1,10 @@
 function [ ] = runAllACPipelines( pathToData )
 % runAllACPipelines() execute runACPipeline once for all AC methods
 %
-% The AC methods are applied according to which folder/s
-% are present in pathToData
+% Attenutation Correction (AC) methods are applied 
+% according to which folder/s are present in pathToData
 %
-% gary.smith@ed.ac.uk   17 09 2018
+% gary.smith@ed.ac.uk   21 09 2018
 
 %---------------------------------------
 % Identify contents of pathToData folder
@@ -38,15 +38,16 @@ rawDataFolder = [];
 
 % Search subfolder names to identify
 % folder type (contents)
-% Note: this requires the folders in Ready to
-% follow the naming convention
+% Note: this requires the sub-subfolders to
+% follow a naming convention 
+% (ie contain a two letter identifier)
 for iSF = 1 : nSubFolders
     
     subFolder  = subFolderList(iSF,:);
     folderType = getFolderType(subFolder);
     
     switch folderType
-        case 'DX'
+        case 'DX' 
             uMapsList = [uMapsList; 'DX'];
         case 'DN'
             uMapsList = [uMapsList; 'DN'];
@@ -76,6 +77,7 @@ disp(['  ',rawDataFolder]);
 % DX, CT  (e.g.) - use existing uMaps
 % ED, NY  (e.g.) - create uMaps from Radial Vibe
 
+% number of attenuation correction methods
 nACs = length(uMapsList(:,1));
 
 disp(' ');
@@ -84,8 +86,8 @@ for iAC = 1 : nACs
     disp(['  ',uMapsList(iAC,:)]);
 end
 
+% run reconstruction process once for each AC method
 for iAC = 1 : nACs
-   
    disp(' ');
    disp([' Using ', uMapsList(iAC,:), ' attenuation correction method'] );
    
