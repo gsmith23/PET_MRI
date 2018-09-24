@@ -17,7 +17,7 @@ function [] = runAllPipelines(pathToReady)
 %   Attenuation corrections can be applied by: 
 %   1) using existing uMaps
 %       Dixon (DX), CT (CT), ...
-%   2) creating uMaps using Radial/STAR Vibes data
+%   2) creating uMaps using Radial/Star VIBE data
 %       Edinburgh (ED) & New York (NY) versions
 %
 %-----
@@ -30,7 +30,7 @@ function [] = runAllPipelines(pathToReady)
 % 
 %-----
 % Author:
-%   gary.smith@ed.ac.uk   21 09 2018
+%   gary.smith@ed.ac.uk   24 09 2018
 %
 %-----
 % Requirements:
@@ -43,28 +43,30 @@ function [] = runAllPipelines(pathToReady)
 %       C:\Siemens\PET\* 
 %       C:\Service\*
 %
-%   DICOM dicionary (required for Radial/Star Vibes methods)
+%   DICOM dicionary (required for Radial/Star VIBE methods)
 %       C:\Docs\dicom-dict-4PETMRI.txt
 %
 %-----
 %  Note:  
 %
 %       The reconstruction process currently works on a
-%       pre-formatted structure of data folders. Conventions 
-%       must presently be implemented prior to running
-%       the pipeline.
+%       pre-formatted data folder naming convention.  
+%       The conventions must presently be implemented 
+%       prior to running the pipeline.
 %       The next stage of the pipeline development will aim  
 %       to automate this convention.     
 %  
-%       Conventions:
+%    Naming Convention:
 %
-%       Each sub-folder of pathToReady will only be processed 
-%       if it contains the unique identifier string 'uniqueID' 
-%       in its name. This variable is initialised below these
-%       comments.
+%       Each sub-folder of pathToReady (each containing data   
+%       for one scan) will only be processed if it's name    
+%       contains a unique identifier string defined by the   
+%       variable uniqueID. This variable is initialised  
+%       directly below these comments.
 %
-%       Sub-sub-folders must contain: 
-%           a)   raw data in a folder containing 'Da' in the name;
+%       Sub-sub-folders of pathToReady (sub-folders of each   
+%       scan folder) must contain in their name:
+%           a)   raw data in a folder containing 'Data';
 %           b)i) a uMaps folder with: 
 %                   'DX' (Dixon)
 %                   'DN' (Dixon - no bone)
@@ -79,25 +81,32 @@ function [] = runAllPipelines(pathToReady)
 %-------------------------------------------------------------
 
 % string to identify ready-to-process 
-% scan data sub folders
+% sub-folders of scan data
 uniqueID     = 'Data'; 
 
 disp('                                               ');
 disp(' ----------------------------------------------');
 disp('          Edinburgh Imaging Facility           ');
-disp('              Cardiac PET MRI                  ');
+disp('             Cardiology PET MRI                ');
 disp('           Reconstruction Pipeline             ');
 disp(' ----------------------------------------------');
-disp('                                               ');
 
 
 %----------------------------------
-% use preset value of pathToReady  
+% allow preset value of pathToReady  
 % if no input argument was given
 if( isempty( pathToReady ) )
     % L - Laptop, R - Reporting room, E - E7tools PC
-    location = 'L'; 
-    pathToReady = setPathToReady(location);
+    
+    % hard-coded option 
+    location = 'R';
+    
+    if( isempty(location) ) 
+        prompt = 'where are you located? (''R'',''E'',''L'')  ';
+        location = input(prompt); 
+    end
+    
+    pathToReady = getPathToReady(location);
 end % if
 %-----------
 
@@ -106,7 +115,6 @@ end % if
 disp(' ');
 disp(' Path to folder of data ready for reconstructing: ');
 disp([ '     ' , pathToReady ] );
-disp(' ');
 
 %---------------------------------------
 % Obtain a list of folders in pathToReady 
@@ -115,8 +123,11 @@ disp(' ');
 folderList = ls([pathToReady,'*',uniqueID,'*']);
 
 % integer to iterate to
-nFolders   = length(folderList(:,1));
-
+if( isempty( folderList ) )
+   error(' No folders of scan data were found') 
+else
+    nFolders   = length(folderList(:,1));
+end
 %---------------------------------------
 % Display list of sub-folders 
 disp(' ');
