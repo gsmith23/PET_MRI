@@ -5,33 +5,39 @@ function folderType = getFolderType( subFolder )
 % (unique) identifiers in typeArray
 
 % folderType options 
-% DX  - Dixon uMaps
-% DX  - Dixon No Bone uMaps
-% ML  - MLAA uMaps
-% CT  - CT uMaps
-% RV  - Radial Vibes data
-% SV  - Star Vibes data
-% Da  - Raw Data 
+% 'DX'  - Dixon uMaps
+% 'DN'  - Dixon No Bone uMaps
+% 'ML'  - MLAA uMaps
+% 'CT'  - CT uMaps
+% 'RV'  - Radial Vibes data
+% 'SV'  - Star Vibes data
 
+% 'Raw_Data'  - Raw Data 
 
 % strings to search in subFolder name for
-typeArray = ['DX';'DN';'ML';'CT';'RV';'SV';'Da'];
+uMapTypeIDArray = ['DX';'DN';'ML';'CT';'RV';'SV'];
+rawDataID       = 'Raw_Data';
 
-nTypes = length(typeArray(:,1));
+nTypes = length(uMapTypeIDArray(:,1));
 
 folderType = '';
 
+    % search through list of uMap types
     for iType = 1 : nTypes
    
-        type = typeArray(iType,:);
-    
-        if( contains( subFolder,type ) )
-  
-            folderType = type;
+        uMapType = uMapTypeIDArray(iType,:);
+        %disp([subFolder,'---']);
+        
+        %if( all( ismember( uMapType, subFolder ) ) )
+        if( strfind( subFolder, uMapType ) )
+            folderType = uMapType;
         
         end
     
     end % for
 
+    if( strfind(  subFolder, rawDataID ) )
+        folderType = 'Raw_Data';
+    end
 end
 

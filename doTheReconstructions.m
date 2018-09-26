@@ -15,8 +15,8 @@ function [] = doTheReconstructions(pathToFolders)
 %
 %   Attenuation corrections can be applied by: 
 %   1) using existing uMaps
-%       Dixon (DX), CT (CT), ...
-%   2) creating uMaps using Radial/Star Vibes data
+%       Dixon (DX), CT (CT), MLAA (ML), 
+%   2) creating uMaps using Radial/Star Vibes (RV)/(SV) data
 %       Edinburgh (ED) & New York (NY) versions
 %
 %-----
@@ -41,14 +41,14 @@ function [] = doTheReconstructions(pathToFolders)
 %       C:\Siemens\PET\* 
 %       C:\Service\*
 %
-%   DICOM dicionary (required for Radial/Star Vibes methods)
+%   DICOM dicionary (required for Radial/Star VIBE methods)
 %       C:\Docs\dicom-dict-4PETMRI.txt
 %
 %-----
 %  Note:  
 %
-%       The reconstruction process currently works on 
-%       pre-formatted folder naming conventions.  
+%       The reconstruction process works on pre-formatted
+%       folder naming conventions.  
 %       Conventions must presently be implemented prior 
 %       to running this program.  
 %  
@@ -60,8 +60,9 @@ function [] = doTheReconstructions(pathToFolders)
 %       is initialised below these comments (and can be modified  
 %       to suit any requirement/convention.)
 %
-%       Sub-sub-folders must contain: 
-%           a)   raw data in a folder containing 'Da' in the name;
+%       Sub-sub-folders of pathToFolders (sub-folders of each   
+%       scan folder) must contain in their name:
+%           a)   raw data in a folder containing 'Raw_Data';
 %           b)i) a uMaps folder with: 
 %                   'DX' (Dixon)
 %                   'DN' (Dixon - no bone)
@@ -71,21 +72,20 @@ function [] = doTheReconstructions(pathToFolders)
 %           b)ii) a Radial/STAR vibes folder with:
 %                    'RV' (Radial Vibes) or
 %                    'SV' (STAR VIBES) 
-%               in the name, plus a Dixon uMaps folder
-%               (for preparing the newly created UMap headers).
+%               in the name, plus a Dixon uMaps folder 
+%               for preparing the newly created UMap headers.
 %-------------------------------------------------------------
 
 % string to identify ready-to-process 
-% scan data sub folders
+% sub-folders of scan data
 uniqueID     = 'Data'; 
 
 disp('                                               ');
 disp(' ----------------------------------------------');
 disp('          Edinburgh Imaging Facility           ');
-disp('              Cardiac PET MRI                  ');
+disp('             Cardiology PET MRI                ');
 disp('           Reconstruction Pipeline             ');
 disp(' ----------------------------------------------');
-disp('                                               ');
 
 
 %----------------------------------
@@ -95,12 +95,17 @@ disp('                                               ');
 if( isempty( pathToFolders ) )
     
     % L - Laptop, R - Reporting room, E - E7tools PC
+    % use hard coded value 
+    location = '';
+    %location = 'E'; % e.g.
+
+    if( isempty(location) ) 
+        prompt = 'where are you located? (''R'',''E'',''L'')  ';
+        location = input(prompt); 
+    end
     
-    % use hard coded value (comment in/out)
-    %location = 'E'; 
-    
-    % if no 
     pathToFolders = getPathToFolders(location);
+    
 end % if
 %-----------
 
@@ -112,14 +117,17 @@ disp([ '     ' , pathToFolders ] );
 disp(' ');
 
 %---------------------------------------
-% Obtain a list of folders in pathToReady 
+% Obtain a list of folders in pathToFolders 
 % ensuring name includes the uniqueID string  
 % ( results in omission of : ., .. )
 folderList = ls([pathToFolders,'*',uniqueID,'*']);
 
 % integer to iterate to
-nFolders   = length(folderList(:,1));
-
+if( isempty( folderList ) )
+   error(' No folders of scan data were found') 
+else
+    nFolders   = length(folderList(:,1));
+end
 %---------------------------------------
 % Display list of sub-folders 
 disp(' ');
@@ -141,7 +149,7 @@ for iFolder = 1 : nFolders
    
    pathToData = [pathToFolders,folderList(iFolder,:)];
    
-   runAllACPipelines(pathToData); 
+   %runAllACPipelines(pathToData); 
 
 end
 

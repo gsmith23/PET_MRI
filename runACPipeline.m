@@ -38,7 +38,7 @@ function runACPipeline(uMapType, ...
 % ---------------
 % Author
 %
-%   gary.smith@ed.ac.uk     12 09 201
+%   gary.smith@ed.ac.uk     24 09 2018
 %
 %--------------------------
 %--------------------------
@@ -48,11 +48,9 @@ function runACPipeline(uMapType, ...
 %  folder names
 nameDXuMaps  = 'DX';
 
-%!!!!!!!!!!!! HACK
-nameCTuMaps  = 'DN';  
+nameCTuMaps  = 'CT';  
 
-%!!!!!!!!!!!! HACK
-nameRadVibe  = 'SV'; 
+nameRadVibe  = 'RV'; 
 
 %-------------------------------------------------
 %-------------------------------------------------
@@ -144,7 +142,11 @@ copyData( pathConvertedData, pathCompletedData);
 switch uMapType
     case 'DX'
         copyData( pathDXuMaps,      pathCompletedUMaps);
+<<<<<<< HEAD
     case 'CT'
+=======
+    case 'CT' 
+>>>>>>> e628fcdb7c8cb4ae4b29f6131c5a74dc3179ba9d
         copyData( pathCTuMaps,      pathCompletedUMaps);
     otherwise
         copyData( pathRadVibeUMaps, pathCompletedUMaps);

@@ -4,7 +4,7 @@ function [ ] = runAllACPipelines( pathToData )
 % Attenutation Correction (AC) methods are applied 
 % according to which folder/s are present in pathToData
 %
-% gary.smith@ed.ac.uk   21 09 2018
+% gary.smith@ed.ac.uk   24 09 2018
 
 %---------------------------------------
 % Identify contents of pathToData folder
@@ -38,9 +38,9 @@ rawDataFolder = [];
 
 % Search subfolder names to identify
 % folder type (contents)
-% Note: this requires the sub-subfolders to
+% Note: this requires the subfolders to
 % follow a naming convention 
-% (ie contain a two letter identifier)
+% (ie contain an identifier)
 for iSF = 1 : nSubFolders
     
     subFolder  = subFolderList(iSF,:);
@@ -59,7 +59,7 @@ for iSF = 1 : nSubFolders
             uMapsList = [uMapsList; 'ED'; 'NY'];
         case 'SV'
             uMapsList = [uMapsList; 'ED'; 'NY'];
-        case 'Da'
+        case 'Raw_Data'
             rawDataFolder = subFolder;
      end
     
