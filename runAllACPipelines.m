@@ -93,7 +93,7 @@ for iAC = 1 : nACs
    
    uMapType = uMapsList(iAC,:);
    
-   runACPipeline(uMapType, pathToData);
+   %runACPipeline(uMapType, pathToData);
 
 end % for iAC
 

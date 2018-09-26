@@ -1,36 +1,34 @@
-function [] = runAllPipelines(pathToReady)
-% runAllPipelines() execute reconstruction process/es
+function [] = doTheReconstructions(pathToFolders)
+% doTheReconstructions() reconstruct raw data from multiple PET scans
+% 
+% Sub-folder/s of 'pathToFolders' should contain a folder of raw   
+% data plus one or more folder of uMaps (and optionally a folder  
+% of Radial/Star Vibe data).
 %
 % Version 1.0
-%
-% Script for executing e7tools reconstruction 
-% pipeline on multiple PET MRI data sets and/or
-% with multiple attenuation correction (AC) 
-% methods. 
 %
 %-------------------------------------------------------------
 % Full Description:
 %   This master script is used to control the running of 
-%   Siemens PET MRI (or CT) image reconstructions using
-%   JSRecon12 and e7_tools.
+%   Siemens PET MRI (or CT) offline image reconstructions 
+%   using JSRecon12 and e7_tools.
 %
 %   Attenuation corrections can be applied by: 
 %   1) using existing uMaps
 %       Dixon (DX), CT (CT), ...
-%   2) creating uMaps using Radial/STAR Vibes data
+%   2) creating uMaps using Radial/Star Vibes data
 %       Edinburgh (ED) & New York (NY) versions
 %
 %-----
 % Input argument: 
-%   pathToReady
-%       Location of master folder containing multiple 
-%       subfolders of data and uMaps in ready to process 
-%       convention. 
+%   pathToFolders
+%       Location of master folder containing one or more  
+%       subfolders of data folders and uMaps folders.
 %       NB Use absolute (not relative) path.
 % 
 %-----
 % Author:
-%   gary.smith@ed.ac.uk   21 09 2018
+%   gary.smith@ed.ac.uk   26 09 2018
 %
 %-----
 % Requirements:
@@ -49,19 +47,18 @@ function [] = runAllPipelines(pathToReady)
 %-----
 %  Note:  
 %
-%       The reconstruction process currently works on a
-%       pre-formatted structure of data folders. Conventions 
-%       must presently be implemented prior to running
-%       the pipeline.
-%       The next stage of the pipeline development will aim  
-%       to automate this convention.     
+%       The reconstruction process currently works on 
+%       pre-formatted folder naming conventions.  
+%       Conventions must presently be implemented prior 
+%       to running this program.  
 %  
-%       Conventions:
+%   Conventions:
 %
-%       Each sub-folder of pathToReady will only be processed 
-%       if it contains the unique identifier string 'uniqueID' 
-%       in its name. This variable is initialised below these
-%       comments.
+%       Each sub-folder of pathToFolders will be processed 
+%       if it contains the unique identifier string, defined by 
+%       variable 'uniqueID', somewhere in its name. This variable 
+%       is initialised below these comments (and can be modified  
+%       to suit any requirement/convention.)
 %
 %       Sub-sub-folders must contain: 
 %           a)   raw data in a folder containing 'Da' in the name;
@@ -92,12 +89,18 @@ disp('                                               ');
 
 
 %----------------------------------
-% use preset value of pathToReady  
 % if no input argument was given
-if( isempty( pathToReady ) )
+% use preset value of pathToFolders  
+
+if( isempty( pathToFolders ) )
+    
     % L - Laptop, R - Reporting room, E - E7tools PC
-    location = 'L'; 
-    pathToReady = setPathToReady(location);
+    
+    % use hard coded value (comment in/out)
+    %location = 'E'; 
+    
+    % if no 
+    pathToFolders = getPathToFolders(location);
 end % if
 %-----------
 
@@ -105,14 +108,14 @@ end % if
 % Display path to master folder 
 disp(' ');
 disp(' Path to folder of data ready for reconstructing: ');
-disp([ '     ' , pathToReady ] );
+disp([ '     ' , pathToFolders ] );
 disp(' ');
 
 %---------------------------------------
 % Obtain a list of folders in pathToReady 
 % ensuring name includes the uniqueID string  
 % ( results in omission of : ., .. )
-folderList = ls([pathToReady,'*',uniqueID,'*']);
+folderList = ls([pathToFolders,'*',uniqueID,'*']);
 
 % integer to iterate to
 nFolders   = length(folderList(:,1));
@@ -136,7 +139,7 @@ for iFolder = 1 : nFolders
    disp(' Running on: '); 
    disp(['   ', folderList(iFolder,:)]);
    
-   pathToData = [pathToReady,folderList(iFolder,:)];
+   pathToData = [pathToFolders,folderList(iFolder,:)];
    
    runAllACPipelines(pathToData); 
 
