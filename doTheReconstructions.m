@@ -5,8 +5,6 @@ function [] = doTheReconstructions(pathToFolders)
 % data plus one or more folder of uMaps (and optionally a folder  
 % of Radial/Star Vibe data).
 %
-% Version 1.0
-%
 %-------------------------------------------------------------
 % Full Description:
 %   This master script is used to control the running of 
@@ -24,7 +22,6 @@ function [] = doTheReconstructions(pathToFolders)
 %   pathToFolders
 %       Location of master folder containing one or more  
 %       subfolders of data folders and uMaps folders.
-%       NB Use absolute (not relative) path.
 % 
 %-----
 % Author:
@@ -58,7 +55,7 @@ function [] = doTheReconstructions(pathToFolders)
 %       if it contains the unique identifier string, defined by 
 %       variable 'uniqueID', somewhere in its name. This variable 
 %       is initialised below these comments (and can be modified  
-%       to suit any requirement/convention.)
+%       to suit any requirement/preference.)
 %
 %       Sub-sub-folders of pathToFolders (sub-folders of each   
 %       scan folder) must contain in their name:
@@ -68,11 +65,11 @@ function [] = doTheReconstructions(pathToFolders)
 %                   'DN' (Dixon - no bone)
 %                   'ML' (MLAA) 
 %                   'CT' (CT)
-%               in the name; and / or
+%               somewhere within the name; and / or
 %           b)ii) a Radial/STAR vibes folder with:
 %                    'RV' (Radial Vibes) or
 %                    'SV' (STAR VIBES) 
-%               in the name, plus a Dixon uMaps folder 
+%               within the name, plus a Dixon uMaps folder: 
 %               for preparing the newly created UMap headers.
 %-------------------------------------------------------------
 
@@ -89,24 +86,33 @@ disp(' ----------------------------------------------');
 
 
 %----------------------------------
-% if no input argument was given
-% use preset value of pathToFolders  
-
+% developers section:
+% (this section can be deleted)
+%
+% if an empty input argument was given []
+% ( such that pathToFolders = [] )
+% use a preset value of pathToFolders  
 if( isempty( pathToFolders ) )
     
     % L - Laptop, R - Reporting room, E - E7tools PC
-    % use hard coded value 
     location = '';
+    
+    % use hard coded value
     %location = 'E'; % e.g.
 
+    % ask for input from user
     if( isempty(location) ) 
-        prompt = 'where are you located? (''R'',''E'',''L'')  ';
+        disp('  ' )
+        disp(' Empty pathToFolders argument ' )
+        disp(' Attempting to set to a default value' )
+        prompt = ' Where are you located? (''R'',''E'',''L'')  ';
         location = input(prompt); 
     end
     
     pathToFolders = getPathToFolders(location);
     
 end % if
+% end of developers note (delete to here)
 %-----------
 
 %---------------------------------------
@@ -118,16 +124,20 @@ disp(' ');
 
 %---------------------------------------
 % Obtain a list of folders in pathToFolders 
-% ensuring name includes the uniqueID string  
-% ( results in omission of : ., .. )
+% ensuring their name includes the uniqueID string  
+% ( results in omission of ., .. from the list 
+%  plus of course the omission of other folders not 
+%  containing the uniqueID )
 folderList = ls([pathToFolders,'*',uniqueID,'*']);
 
-% integer to iterate to
+% check that there is a list and if so
+% make an integer variable to iterate to
 if( isempty( folderList ) )
    error(' No folders of scan data were found') 
 else
     nFolders   = length(folderList(:,1));
 end
+
 %---------------------------------------
 % Display list of sub-folders 
 disp(' ');
@@ -144,12 +154,12 @@ for iFolder = 1 : nFolders
         
    disp(' ');
    disp(' -----------');
-   disp(' Running on: '); 
+   disp(' Preparing to reconstuct: '); 
    disp(['   ', folderList(iFolder,:)]);
    
    pathToData = [pathToFolders,folderList(iFolder,:)];
    
-   %runAllACPipelines(pathToData); 
+   doAllACMethods(pathToData); 
 
 end
 

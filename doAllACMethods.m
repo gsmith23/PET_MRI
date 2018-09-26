@@ -1,5 +1,5 @@
-function [ ] = runAllACPipelines( pathToData )
-% runAllACPipelines() execute runACPipeline once for all AC methods
+function [ ] = doAllACMethods( pathToData )
+% doAllACMethods() run executeThePipeline once for all AC methods
 %
 % Attenutation Correction (AC) methods are applied 
 % according to which folder/s are present in pathToData
@@ -93,7 +93,7 @@ for iAC = 1 : nACs
    
    uMapType = uMapsList(iAC,:);
    
-   %runACPipeline(uMapType, pathToData);
+   doReconWithAC(uMapType, pathToData);
 
 end % for iAC
 
