@@ -147,6 +147,9 @@ for iFolder = 1 : nFolders
      disp(['     ',folderList(iFolder,:)]);
 end
 
+% functions are located in a subfolder folder 
+cd('./Functions');
+
 %---------------------------------------
 % Execute master reconstruction script 
 % once for each sub-folder
@@ -163,3 +166,5 @@ for iFolder = 1 : nFolders
 
 end
 
+% return to parent folder
+cd('../')
