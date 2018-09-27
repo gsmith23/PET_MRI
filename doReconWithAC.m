@@ -1,6 +1,6 @@
-function runACPipeline(uMapType, ...
-                       pathData)
-% runACPipeline() execute PET MRI reconstruction pipeline
+function doReconWithAC(uMapType, ...
+                       pathToData)
+% doReconWithAC() execute reconstruction for one scan using one AC method
 % 
 % ---------------
 %
@@ -10,13 +10,13 @@ function runACPipeline(uMapType, ...
 %   for PET MRI (or CT) data. Input arguments are used to specify 
 %   which input data and attenuation correction method to use.
 % 
-%   The data and uMaps are initially copied to a processing 
+%   The data and uMap are initially copied to a processing 
 %   folder (Processing). 
 %
-%   If specified a custom uMap is created using methods 
+%   If specified, a custom uMap is created using methods 
 %   provided.
 %
-%   Once the data and uMaps are prepared JSRecon12 is
+%   Once the data and uMap are prepared JSRecon12 is
 %   executed on the data in the Processing folder. This 
 %   results in the production of e7_tools scripts.
 %
@@ -24,7 +24,7 @@ function runACPipeline(uMapType, ...
 %   in the production of image reconstructions.
 %
 %   The image reconstructions are copied to an output folder
-%   (Completed) with the corresponding uMaps ready for transfer.
+%   (Completed) with the corresponding uMap ready for transfer.
 % 
 % ---------------
 % Input arguments 
@@ -32,20 +32,21 @@ function runACPipeline(uMapType, ...
 %   uMapType: 'DX', 'CT' - use existing uMaps
 %             'ED', 'NY' - create uMaps from Radial Vibes
 %
-%   pathData: full path to the folder containing data folders 
-%             and uMaps folders   
+%   pathToData: full path to the folder containing data folder/s 
+%               and uMap folder/s   
 %
 % ---------------
 % Author
 %
-%   gary.smith@ed.ac.uk     24 09 2018
+%   gary.smith@ed.ac.uk     26 09 2018
 %
 %--------------------------
 %--------------------------
 %   Initialise Variables
 %
-% uMaps and Radial Vibes
+% uMap/s and Radial Vibes
 %  folder names
+
 nameDXuMaps  = 'DX';
 
 nameCTuMaps  = 'CT';  
@@ -59,13 +60,13 @@ nameRadVibe  = 'RV';
 %
 % Bottom level folder containing / to contain:
 % [Data], Processing, and Completed folders
-pathRootFolder = getPathRootFolder(pathData);
+pathRootFolder = getPathRootFolder(pathToData);
 
 % Location for processing data
 pathProcessing = getPathProcessing(pathRootFolder);
 
 % name of Data (folder)  
-nameData = getNameData(pathData);    
+nameData = getNameData(pathToData);    
 
 pathProcessingData = getPathThisData(pathProcessing, ...
                                      nameData);
@@ -73,8 +74,7 @@ pathProcessingData = getPathThisData(pathProcessing, ...
 % existing uMaps
 pathCTuMaps     = getPathUMaps(pathProcessingData, ...
                                nameCTuMaps); 
-                            
-                            
+                                                     
 % existing uMaps
 pathDXuMaps     = getPathUMaps(pathProcessingData, ...
                                nameDXuMaps); 
@@ -94,23 +94,32 @@ pathRadVibeUMaps = getPathRadVibeUMaps(pathProcessingData, ...
 
 %--------------------------
 %--------------------------
-% Execute Pipeline 
+% Execute Reconstruction Process 
 %
 %--------------------------
 % a) Copy raw data and uMaps to reconstruction location
 
-copyData(pathData,  ...
+copyData(pathToData,  ...
          pathProcessingData);
   
         
 %--------------------------     
 % b) Prepare custom uMaps
-prepareUMaps(uMapType,         ...
-             pathDXuMaps,      ...
-             pathCTuMaps,      ...
-             pathRadVibeUMaps, ...
-             pathRadVibeData);   
 
+if( strcmp(uMapType,'RV') || ...
+    strcmp(uMapType,'SV') )
+    
+  disp(' Rad Vibe' );
+                
+    
+end
+
+
+  prepareUMaps(uMapType,         ...
+               pathDXuMaps,      ...
+               pathCTuMaps,      ...
+               pathRadVibeUMaps, ...
+               pathRadVibeData);  
 %--------------------------         
 % c) Execute reconstruction process
 runReconstruction(pathProcessing,nameData);
@@ -142,7 +151,7 @@ copyData( pathConvertedData, pathCompletedData);
 switch uMapType
     case 'DX'
         copyData( pathDXuMaps,      pathCompletedUMaps);
-    case 'CT' 
+    case 'CT'
         copyData( pathCTuMaps,      pathCompletedUMaps);
     otherwise
         copyData( pathRadVibeUMaps, pathCompletedUMaps);
