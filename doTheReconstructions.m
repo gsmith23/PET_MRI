@@ -1,9 +1,23 @@
 function [] = doTheReconstructions(pathToFolders)
 % doTheReconstructions() reconstruct raw data from multiple PET scans
 % 
-% Sub-folder/s of 'pathToFolders' should contain a folder of raw   
-% data plus one or more folder of uMaps (and optionally a folder  
-% of Radial/Star Vibe data).
+% Sub-folder/s of folders in 'pathToFolders' should contain    
+% a folder of raw data plus one or more folder of uMaps   
+% (and optionally a folder of Radial/Star Vibe data).
+%
+% Example:
+%
+%   pathToFolders = 'D:\Gary_RR\Ready\'
+%
+% contains two scan folders:
+%   PETMRI_TestData_B20P_Test1
+%   PETMRI_TestData_B20P_Test2
+%
+% The sub-folder PETMRI_TestData_B20P_Test1
+% contains the folders:
+%   050Tho_50min_MRAC_NAF_PET_Raw_Data      % Raw PET Data
+%   DX                                      % Dixon UMap
+%   RV                                      % Radial Vibe data
 %
 %-------------------------------------------------------------
 % Full Description:
@@ -25,7 +39,7 @@ function [] = doTheReconstructions(pathToFolders)
 % 
 %-----
 % Author:
-%   gary.smith@ed.ac.uk   26 09 2018
+%   gary.smith@ed.ac.uk   27 09 2018
 %
 %-----
 % Requirements:
@@ -44,8 +58,8 @@ function [] = doTheReconstructions(pathToFolders)
 %-----
 %  Note:  
 %
-%       The reconstruction process works on pre-formatted
-%       folder naming conventions.  
+%       This version of the reconstruction process works 
+%       with pre-formatted folder naming conventions.  
 %       Conventions must presently be implemented prior 
 %       to running this program.  
 %  
@@ -69,12 +83,12 @@ function [] = doTheReconstructions(pathToFolders)
 %           b)ii) a Radial/STAR vibes folder with:
 %                    'RV' (Radial Vibes) or
 %                    'SV' (STAR VIBES) 
-%               within the name, plus a Dixon uMaps folder: 
+%               within the name, plus a Dixon uMaps folder 
 %               for preparing the newly created UMap headers.
 %-------------------------------------------------------------
 
 % string to identify ready-to-process 
-% sub-folders of scan data
+% sub-folder/s of scan data
 uniqueID     = 'Data'; 
 
 disp('                                               ');
