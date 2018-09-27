@@ -144,7 +144,7 @@ copyData( pathConvertedData, pathCompletedData);
 switch uMapType
     case 'DX'
         copyData( pathDXuMaps,      pathCompletedUMaps);
-    case 'DN' % !!!!!!!!!!!!!!!! HACK  
+    case 'CT'
         copyData( pathCTuMaps,      pathCompletedUMaps);
     otherwise
         copyData( pathRadVibeUMaps, pathCompletedUMaps);

@@ -30,7 +30,7 @@ function [] = runAllPipelines(pathToReady)
 % 
 %-----
 % Author:
-%   gary.smith@ed.ac.uk   21 09 2018
+%   gary.smith@ed.ac.uk   23 09 2018
 %
 %-----
 % Requirements:
@@ -53,8 +53,8 @@ function [] = runAllPipelines(pathToReady)
 %       pre-formatted structure of data folders. Conventions 
 %       must presently be implemented prior to running
 %       the pipeline.
-%       The next stage of the pipeline development will aim  
-%       to automate this convention.     
+%       The next stage of development will be to automate
+%       this convention.     
 %  
 %       Conventions:
 %
