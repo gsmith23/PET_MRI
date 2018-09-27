@@ -5,7 +5,7 @@ function [ ] = createUMapsNYC( pathRadVibeData, ...
 % into DICOM uMaps to be passed to JSRecon12 
 %
 % Adapted
-% gary.smith@ed.ac.uk   10 09 18
+% gary.smith@ed.ac.uk   27 09 18
 %
 
 codePath = pwd;
@@ -100,7 +100,7 @@ b = 1;  % Soft tissue component only
 % b = (tps(2) + round(1.5*(tps(2)-tps(1))))/n_bins;
 
 cd(codePath)
-[soft_tissue, fat] = createUMapsMR(ima_in, a, b);  
+[soft_tissue, fat] = createUMapsRawNYC(ima_in, a, b);  
 
 %  Smooth images
 soft_tissue_smooth  = imageSmooth2D(soft_tissue, [FOV FOV], KERNEL_FWHM);

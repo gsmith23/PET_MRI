@@ -2,7 +2,7 @@ function folderType = getFolderType( subFolder )
 % getFolderType() return character array of folder type
 %
 % A search is performed on 'subFolder' to match any of the
-% (unique) identifiers in typeArray
+% (unique) identifiers in uMapTypeIDArray
 
 % folderType options 
 % 'DX'  - Dixon uMaps
