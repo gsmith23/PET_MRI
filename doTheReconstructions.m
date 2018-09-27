@@ -13,7 +13,7 @@ function [] = doTheReconstructions(pathToFolders)
 %   PETMRI_TestData_B20P_Test1
 %   PETMRI_TestData_B20P_Test2
 %
-% The sub-folder PETMRI_TestData_B20P_Test1
+% The sub-folder PETMRI_TestData_B20P_Test1 for example
 % contains the folders:
 %   050Tho_50min_MRAC_NAF_PET_Raw_Data      % Raw PET Data
 %   DX                                      % Dixon UMap
@@ -27,7 +27,7 @@ function [] = doTheReconstructions(pathToFolders)
 %
 %   Attenuation corrections can be applied by: 
 %   1) using existing uMaps
-%       Dixon (DX), CT (CT), MLAA (ML), 
+%       Dixon (DX/DN), CT (CT), MLAA (ML), 
 %   2) creating uMaps using Radial/Star Vibes (RV)/(SV) data
 %       Edinburgh (ED) & New York (NY) versions
 %
@@ -56,7 +56,7 @@ function [] = doTheReconstructions(pathToFolders)
 %       C:\Docs\dicom-dict-4PETMRI.txt
 %
 %-----
-%  Note:  
+%  Note on version:  
 %
 %       This version of the reconstruction process works 
 %       with pre-formatted folder naming conventions.  
@@ -99,36 +99,6 @@ disp('           Reconstruction Pipeline             ');
 disp(' ----------------------------------------------');
 
 
-%----------------------------------
-% developers section:
-% (this section can be deleted)
-%
-% if an empty input argument was given []
-% ( such that pathToFolders = [] )
-% use a preset value of pathToFolders  
-if( isempty( pathToFolders ) )
-    
-    % L - Laptop, R - Reporting room, E - E7tools PC
-    location = '';
-    
-    % use hard coded value
-    %location = 'E'; % e.g.
-
-    % ask for input from user
-    if( isempty(location) ) 
-        disp('  ' )
-        disp(' Empty pathToFolders argument ' )
-        disp(' Attempting to set to a default value' )
-        prompt = ' Where are you located? (''R'',''E'',''L'')  ';
-        location = input(prompt); 
-    end
-    
-    pathToFolders = getPathToFolders(location);
-    
-end % if
-% end of developers note (delete to here)
-%-----------
-
 %---------------------------------------
 % Display path to master folder 
 disp(' ');
@@ -161,7 +131,6 @@ for iFolder = 1 : nFolders
      disp(['     ',folderList(iFolder,:)]);
 end
 
-% functions are located in a subfolder folder 
 cd('./Functions');
 
 %---------------------------------------
@@ -176,9 +145,8 @@ for iFolder = 1 : nFolders
    
    pathToData = [pathToFolders,folderList(iFolder,:)];
    
-   doAllACMethods(pathToData); 
+   runAllACMethods(pathToData); 
 
 end
 
-% return to parent folder
 cd('../')
