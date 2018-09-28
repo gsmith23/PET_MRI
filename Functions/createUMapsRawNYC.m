@@ -1,10 +1,10 @@
-function [soft_tissue, fat] = createUMapsMR(image_in, a, b, varargin)
-% createUMapMR()    make soft tissue and fat uMaps
+function [soft_tissue, fat] = createUMapsRawNYC(image_in, a, b, varargin)
+% createUMapsRawNYC()    make soft tissue and fat uMaps
 %
 % Used as input to NYC uMaps production
 %
 % Adapted
-% gary.smith@ed.ac.uk   10 09 2018
+% gary.smith@ed.ac.uk   27 09 2018
 
 % Input arguments
 %  a, b fractions of maximum pixel intensity
@@ -38,8 +38,9 @@ end
 if (length(varargin) >=1)     
     n = varargin{1};
 end
-% GM ommitted - these figures wouldn't plot
-figure
-imagesc(soft_tissue(:,:,round(n_slices/2)));daspect([1 1 1]);axis off;title('Soft tissue')
-figure
-imagesc(fat(:,:,round(n_slices/2)));daspect([1 1 1]);axis off;title('Fat')
+
+% Plot figures
+% figure
+% imagesc(soft_tissue(:,:,round(n_slices/2)));daspect([1 1 1]);axis off;title('Soft tissue')
+% figure
+% imagesc(fat(:,:,round(n_slices/2)));daspect([1 1 1]);axis off;title('Fat')
