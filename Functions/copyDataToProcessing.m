@@ -31,6 +31,9 @@ end
 pathToUMap = getPathToUMap( pathToData, ...
                             uMapType );
         
+disp([' pathToUMap      = ', pathToUMap] );  
+disp([' pathProcessData = ', pathProcessData] );  
+
 copyData(pathToUMap, ...
          pathProcessData)
 
