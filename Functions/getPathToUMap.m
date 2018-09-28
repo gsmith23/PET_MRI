@@ -6,7 +6,7 @@ function pathToUMap = getPathToUMap( pathToData, ...
 
 pathToUMap = ls([pathToData,'\*',uMapType,'*']);
 
-pathToUMap = [pathToData,'\',pathToUMap,'\'];
+pathToUMap = [pathToData,'\',pathToUMap];
 
 
 end

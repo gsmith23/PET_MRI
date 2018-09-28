@@ -1,14 +1,14 @@
-function [  ] = deleteProcessFolder( pathToData )
-% deleteProcessFolder() 
+function [  ] = deleteProcessingFolder( pathToData )
+% deleteProcessingFolder() 
 
 % Bottom level folder containing / to contain:
 % [Data], Processing, and Completed folders
 pathRootFolder = getPathRootFolder(pathToData);
 
 % Location for processing data
-pathProcess = getPathProcessing(pathRootFolder);
+pathProcessing = getPathProcessing(pathRootFolder);
 
-rmdirIfExisting(pathProcess); 
+rmdirIfExisting(pathProcessing); 
 
 end
 

@@ -1,5 +1,0 @@
-% startingScript simple script to run the program
-
-pathToFolders = 'D:\Gary_RR\Ready\';
-
-doTheReconstructions();

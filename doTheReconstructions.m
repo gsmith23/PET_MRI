@@ -2,7 +2,7 @@ function [] = doTheReconstructions(pathToFolders)
 % doTheReconstructions() reconstruct raw data from multiple PET scans
 % 
 % Sub-folder/s of folders in 'pathToFolders' should contain    
-% a folder of raw data plus one or more folder of uMaps   
+% a folder of raw data plus one or more folder containing a uMap   
 % (and optionally a folder of Radial/Star Vibe data).
 %
 % Example:
@@ -26,9 +26,9 @@ function [] = doTheReconstructions(pathToFolders)
 %   using JSRecon12 and e7_tools.
 %
 %   Attenuation corrections can be applied by: 
-%   1) using existing uMaps
+%   1) using an existing uMap
 %       Dixon (DX/DN), CT (CT), MLAA (ML), 
-%   2) creating uMaps using Radial/Star Vibes (RV)/(SV) data
+%   2) creating a uMap using Radial/Star Vibes (RV)/(SV) data
 %       Edinburgh (ED) & New York (NY) versions
 %
 %-----
@@ -81,8 +81,8 @@ function [] = doTheReconstructions(pathToFolders)
 %                   'CT' (CT)
 %               somewhere within the name; and / or
 %           b)ii) a Radial/STAR vibes folder with:
-%                    'RV' (Radial Vibes) or
-%                    'SV' (STAR VIBES) 
+%                   'RV' (Radial Vibes) or
+%                   'SV' (STAR VIBES) 
 %               within the name, plus a Dixon uMaps folder 
 %               for preparing the newly created UMap headers.
 %-------------------------------------------------------------

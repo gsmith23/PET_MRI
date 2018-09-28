@@ -1,6 +1,6 @@
 function [  ] = copyDataToProcessing( uMapType, ...
                                       pathToData )
-% copyDataToProcessin()
+% copyDataToProcessing()
 
 % Bottom level folder containing / to contain:
 % [Data], Processing, and Completed folders
@@ -12,13 +12,13 @@ pathProcessing = getPathProcessing(pathRootFolder);
 % name of Data (folder)  
 nameData = getNameData(pathToData);
 
-pathProcessData = getPathThisData(pathProcessing, ...
+pathProcessingData = getPathThisData(pathProcessing, ...
                                   nameData);
 
-pathToRawData = getPathToRawData(pathToData);
+pathToRawData = getPathToRawData(pathToData); 
 
 copyData(pathToRawData, ...
-         pathProcessData)
+         pathProcessingData)
      
 % Dixon UMap is required to modify Vibes UMap headers
 if ( strcmp(uMapType,'RV') || ...
@@ -31,11 +31,10 @@ end
 pathToUMap = getPathToUMap( pathToData, ...
                             uMapType );
         
-disp([' pathToUMap      = ', pathToUMap] );  
-disp([' pathProcessData = ', pathProcessData] );  
-
+pathProcessingDataUMap = [ pathProcessingData,'\',uMapType];
+    
 copyData(pathToUMap, ...
-         pathProcessData)
+         pathProcessingDataUMap)
 
 end
 

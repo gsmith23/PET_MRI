@@ -1,7 +1,6 @@
 function doReconWithAC(uMapType, ...
                        pathToData)
-
-% doReconWithAC() execute reconstruction for one PET scan using one AC method
+% doReconWithAC() do reconstruction for one PET scan using one AC method
 % 
 % ---------------
 %
@@ -58,13 +57,13 @@ copyDataToProcessing(uMapType, ...
                      pathToData);
        
 %--------------------------     
-% b) Create uMaps
+% b) Create uMap if necessary
 %
-if( strcmp(uMapType,'SV') || ...
-    strcmp(uMapType,'RV') )
+if( strcmp(uMapType,'ED') || ...
+    strcmp(uMapType,'NY') )
 
-    prepareUMaps(uMapType, ...
-                pathToData);  
+    createUMap(uMapType, ...
+               pathToData);  
   
 end
 
@@ -83,6 +82,6 @@ copyConvertedData( uMapType, ...
 % To Do: add check for permissions, 
 % pause with message if no 'write'.
 
-deleteProcessFolder(pathToData);       
+deleteProcessingFolder(pathToData);       
 
 end

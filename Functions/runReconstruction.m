@@ -3,7 +3,7 @@ function runReconstruction( pathToData )
 % simple function to run the reconstruction process
 % 
 
-% gary.smith@ed.ac.uk   06 09 18
+% gary.smith@ed.ac.uk   28 09 18
 
 
 %-------------------------------------------------
@@ -21,8 +21,8 @@ pathProcessing = getPathProcessing(pathRootFolder);
 nameData = getNameData(pathToData);    
 
 disp(' ');
-disp(' path to data:');
-disp(['   ',pathProcessing, '\', nameData]);
+disp(' path in which data will be processed:');
+disp(['   ', pathProcessing, '\', nameData]);
 
 % run JSRecon12 
 statusJS = runJSRecon12(pathProcessing, nameData);

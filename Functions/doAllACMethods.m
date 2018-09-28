@@ -4,7 +4,7 @@ function [ ] = doAllACMethods( pathToData )
 % Attenutation Correction (AC) methods are applied 
 % according to which folder/s are present in pathToData
 %
-% gary.smith@ed.ac.uk   27 09 2018
+% gary.smith@ed.ac.uk   28 09 2018
 
 %---------------------------------------
 % Identify contents of pathToData folder
@@ -31,7 +31,7 @@ nSubFolders   = length(subFolderList(:,1));
 
 % initialise first (dummy) element
 %  (temporary solution)
-uMapsList     = 'XX';
+uMapList      = 'XX';
 rawDataFolder = [];
 
 % Search subfolder names to identify
@@ -46,17 +46,17 @@ for iSF = 1 : nSubFolders
     
     switch folderType
         case 'DX' 
-            uMapsList = [uMapsList; 'DX'];
+            uMapList = [uMapList; 'DX'];
         case 'DN'
-            uMapsList = [uMapsList; 'DN'];
+            uMapList = [uMapList; 'DN'];
         case 'CT'
-            uMapsList = [uMapsList; 'CT'];
+            uMapList = [uMapList; 'CT'];
         case 'ML'
-            uMapsList = [uMapsList; 'ML'];
+            uMapList = [uMapList; 'ML'];
         case 'RV'
-            uMapsList = [uMapsList; 'ED'; 'NY'];
+            uMapList = [uMapList; 'ED'; 'NY'];
         case 'SV'
-            uMapsList = [uMapsList; 'ED'; 'NY'];
+            uMapList = [uMapList; 'ED'; 'NY'];
         case 'Raw_Data'
             rawDataFolder = subFolder;
      end
@@ -64,7 +64,7 @@ for iSF = 1 : nSubFolders
 end % for iSF
 
 % remove first (dummy) element
-uMapsList = uMapsList(2:length(uMapsList(:,1)),:);
+uMapList = uMapList(2:length(uMapList(:,1)),:);
 
 disp(' ');
 disp(' Raw Data Folder:')
@@ -73,20 +73,20 @@ disp(['  ',rawDataFolder]);
 %---------------------------------------
 
 % number of attenuation correction methods
-nACs = length(uMapsList(:,1));
+nACs = length(uMapList(:,1));
 
 disp(' ');
 disp(' List of AC methods:')
 for iAC = 1 : nACs
-    disp(['  ',uMapsList(iAC,:)]);
+    disp(['  ',uMapList(iAC,:)]);
 end
 
 % run reconstruction process once for each AC method
 for iAC = 1 : nACs
    disp(' ');
-   disp([' Using ', uMapsList(iAC,:), ' attenuation correction method'] );
+   disp([' Using ', uMapList(iAC,:), ' attenuation correction method'] );
    
-   uMapType = uMapsList(iAC,:);
+   uMapType = uMapList(iAC,:);
    
    doReconWithAC(uMapType, pathToData);
 
