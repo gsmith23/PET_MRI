@@ -1,73 +1,84 @@
-function [ ] = prepareUMaps( uMapType,         ...
-                             pathDXuMaps,      ...
-                             pathCTuMaps,      ...
-                             pathRadVibeUMaps, ...
-                             pathRadVibeData )
-% prepareUMaps  Facilitate use or creation of specified uMaps 
-%
-%   If using an existing uMaps set, the other 
-%   existing uMaps sets are removed from the 
-%   Processing folder.
+function [ ] = prepareUMaps( uMapType,  ...
+                             pathToData)
+% prepareUMaps  Facilitate creation of uMaps 
 %
 %   If creating Radial Vibe uMaps one of two  
-%   variations is implemented (NYC/NY or EDI/ED).
+%   variations is implemented (NY or ED).
 %
-% gary.smith@ed.ac.uk   11 09 2018
+% gary.smith@ed.ac.uk   28 09 2018
     
-disp( ' ' );
 
-switch uMapType
-    case 'DX'
-        disp( ' Using Dixon uMaps ' );
-        disp( ' ' );
-        
-        rmdirIfExisting(pathCTuMaps);
-                
-    case 'DN'%!!!!!!!!!!! HACK
-        disp( ' Using DN uMaps ' );
-        disp( ' ' );
-               
-        rmdirIfExisting(pathDXuMaps);
-    otherwise % Radial Vibe creation
-        
-        mkdirIfAbsent(pathRadVibeUMaps);
+%-------------------------------------------------
+%-------------------------------------------------
+% Set path variables
+%
+%
+% Bottom level folder containing / to contain:
+% [Data], Processing, and Completed folders
+pathRootFolder = getPathRootFolder(pathToData);
+
+% Location for processing data
+pathProcessing = getPathProcessing(pathRootFolder);
+
+% name of Data (folder)  
+nameData = getNameData(pathToData);    
+
+pathProcessingData = getPathThisData(pathProcessing, ...
+                                     nameData);
+                                                                             
+% manufacturer uMap
+%  currently required Dixon but could be extended to 
+%  any manufacturer uMap
+pathDXuMaps     = getPathUMaps(pathProcessingData, ...
+                               'DX'); 
+                                                   
+% vibes data                         
+pathVibeData = getPathVibeData(pathProcessingData, ...
+                               uMapType);
+
+% where created uMaps will go                               
+pathVibeUMaps = getPathVibeUMaps(pathProcessingData, ...
+                                 nameRadVibe, ...
+                                 uMapType);
+
+mkdirIfAbsent(pathVibeUMaps);
                        
-        switch uMapType
-            case 'NY'  
+switch uMapType
+    case 'NY'  
+        disp( ' ' );
+        disp( ' Creating NYC uMaps ' );
+        disp( ' ' );
+        
+        createUMapsNYC( pathVibeData , ...
+                        pathVibeUMaps);
+        
+    case 'ED' 
+        disp( ' Creating EDI uMaps ' );
+        disp( ' ' );
+        
+        createUMapsEDI( pathVibeData , ...
+                        pathVibeUMaps); 
+    otherwise
+        disp( '  ' );
+        error( ' Unknown uMapType ' );
+        
+end  % switch uMapType  
     
-                disp( ' Creating NYC uMaps ' );
-                disp( ' ' );
-        
-                createUMapsNYC( pathRadVibeData , ...
-                                pathRadVibeUMaps);
-        
-            case 'ED' 
+% Vibe UMap header prep
+prepareUMapsHeaders( pathDXuMaps,    ...
+                     pathVibeUMaps,  ...
+                     uMapType);    
+  
+rmdirIfExisting(pathDXuMaps);
+rmdirIfExisting(pathRadVibeData);
     
-                disp( ' Creating EDI uMaps ' );
-                disp( ' ' );
-        
-                createUMapsEDI( pathRadVibeData , ...
-                                pathRadVibeUMaps); 
-            otherwise 
-            
-            disp( '  ' );
-            error( ' Unknown uMapType ' );
-        
-        end  % switch uMapType (radial vibe) 
-    
-        % radial vibe header prep
-        prepareUMapsHeaders( pathDXuMaps,       ...
-                             pathRadVibeUMaps,  ...
-                             uMapType);    
-    
-        rmdirIfExisting(pathDXuMaps);
-          
-        rmdirIfExisting(pathCTuMaps);
-       
-        
-end % switch uMapType (any)
+pathCompletedUMaps = getPathCompletedUMaps(pathCompleted, ...
+                                           nameData,      ...
+                                           uMapType);
 
-    rmdirIfExisting(pathRadVibeData);
-    
+% copy uMaps 
+copyData( pathVibeUMaps, ...
+          pathCompletedUMaps);
+
 
 end % function

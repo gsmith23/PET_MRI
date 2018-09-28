@@ -131,7 +131,7 @@ for iFolder = 1 : nFolders
      disp(['     ',folderList(iFolder,:)]);
 end
 
-cd('./Functions');
+addpath('./Functions');
 
 %---------------------------------------
 % Execute master reconstruction script 
@@ -145,8 +145,9 @@ for iFolder = 1 : nFolders
    
    pathToData = [pathToFolders,folderList(iFolder,:)];
    
-   runAllACMethods(pathToData); 
+   pathToData = pathToData( find(~isspace(pathToData)));
+   
+   doAllACMethods(pathToData); 
 
 end
 
-cd('../')

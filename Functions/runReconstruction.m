@@ -1,9 +1,24 @@
-function runReconstruction( pathProcessing, nameData)
+function runReconstruction( pathToData )
 % runReconstruction() executes runJSRecon12 then runE7Tools
 % simple function to run the reconstruction process
 % 
 
 % gary.smith@ed.ac.uk   06 09 18
+
+
+%-------------------------------------------------
+% Set path variables
+%
+%
+% Bottom level folder containing / to contain:
+% [Data], Processing, and Completed folders
+pathRootFolder = getPathRootFolder(pathToData);
+
+% Location for processing data
+pathProcessing = getPathProcessing(pathRootFolder);
+
+% name of Data (folder)  
+nameData = getNameData(pathToData);    
 
 disp(' ');
 disp(' path to data:');

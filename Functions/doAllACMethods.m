@@ -1,5 +1,5 @@
-function [ ] = runAllACMethods( pathToData )
-% runAllACMethods() run doReconWithAC once for all AC methods
+function [ ] = doAllACMethods( pathToData )
+% doAllACMethods() run doReconWithAC once for all AC methods
 %
 % Attenutation Correction (AC) methods are applied 
 % according to which folder/s are present in pathToData
@@ -23,16 +23,14 @@ nSubFolders   = length(subFolderList(:,1));
 % DX  - Dixon uMaps
 % ML  - MLAA uMaps
 % CT  - CT uMaps
-% [to be included] 
-% [DN  - Dixon No Bone uMaps]
-% [DB  - Dixon Bone uMaps]
-% [CP  - psuedo CT from MR]
+% DN  - Dixon No Bone uMaps
 
-% Create uMaps using Radial VIbes Data 'RV'
+% Create uMaps using Radial/Star Vibes Data 'RV' / 'SV'
 % ED  - Edinburgh method
-% NY  - York method
+% NY  - New York method
 
-%   initialise first (dummy) element
+% initialise first (dummy) element
+%  (temporary solution)
 uMapsList     = 'XX';
 rawDataFolder = [];
 
@@ -73,9 +71,6 @@ disp(' Raw Data Folder:')
 disp(['  ',rawDataFolder]);
 
 %---------------------------------------
-% uMaps
-% DX, CT  (e.g.) - use existing uMaps
-% ED, NY  (e.g.) - create uMaps from Radial Vibe
 
 % number of attenuation correction methods
 nACs = length(uMapsList(:,1));
@@ -93,15 +88,8 @@ for iAC = 1 : nACs
    
    uMapType = uMapsList(iAC,:);
    
-<<<<<<< HEAD:runAllACPipelines.m
-   %runACPipeline(uMapType, pathToData);
-=======
-   %doReconWithAC(uMapType, pathToData);
->>>>>>> 6191415000713d66a961fecf9eb6c4266e854172:Functions/runAllACMethods.m
+   doReconWithAC(uMapType, pathToData);
 
 end % for iAC
 
-
-
 end
-
