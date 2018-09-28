@@ -23,5 +23,15 @@ pathCompletedData  = getPathCompletedData(pathCompleted, ...
                                
 copyData( pathConvertedData, pathCompletedData);
 
+pathToUMap = getPathToUMap(pathToData, uMapType);
+
+pathCompletedUMap  = getPathCompletedUMap(pathCompleted, ...
+                                          nameData,      ...
+                                          uMapType);
+
+copyData( pathToUMap, pathCompletedUMap);
+
+% To add - method to copy the UMap used for reconstruction too
+
 end
 

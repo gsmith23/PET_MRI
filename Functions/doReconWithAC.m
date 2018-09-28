@@ -83,6 +83,6 @@ copyConvertedData( uMapType, ...
 % To Do: add check for permissions, 
 % pause with message if no 'write'.
 
-deleteProccessingFolder(pathToData);       
+deleteProcessFolder(pathToData);       
 
 end

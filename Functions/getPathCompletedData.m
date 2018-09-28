@@ -9,7 +9,7 @@ function pathCompletedData = getPathCompletedData( pathCompleted, ...
 
 pathCompletedData = [pathCompleted,'\',nameData];
 
-pathCompletedData = [pathCompletedData, '_', uMapType, '_Data'];    
+pathCompletedData = [pathCompletedData, '_', uMapType, '\'];    
     
 end
 
