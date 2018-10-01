@@ -1,7 +1,10 @@
-% a simple script to start the reconstruction code running
+% a simple script to execute the reconstruction code 
+%
+% This code can be used to do a single reconstruction.
+%
 
 % path to scan folder containing raw data and a uMap
-%  Note: modify to the name of a folder containing a
+%  Note: set to the name of a folder containing a
 %        sub-folder of raw data and a Dixon uMap sub-folder
 %        The raw data folder should contain 'Raw_Data' in 
 %        somewhere within its name.
