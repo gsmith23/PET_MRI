@@ -4,7 +4,7 @@ function [ ] = doAllACMethods( pathToData )
 % Attenutation Correction (AC) methods are applied 
 % according to which folder/s are present in pathToData
 %
-% gary.smith@ed.ac.uk   28 09 2018
+% gary.smith@ed.ac.uk   01 10 2018
 
 %---------------------------------------
 % Identify contents of pathToData folder
@@ -17,7 +17,7 @@ nSubFolders   = length(subFolderList(:,1));
 % Create list of uMaps
 %   e.g. ['DX','CT','ED','NY']
 
-% Type of uMaps
+% Type of uMaps:
 
 % Use existing uMaps
 % DX  - Dixon uMaps

@@ -11,9 +11,11 @@ function folderType = getFolderType( subFolder )
 % 'CT'  - CT uMaps
 % 'RV'  - Radial Vibes data
 % 'SV'  - Star Vibes data
-
+%
 % 'Raw_Data'  - Raw Data 
-
+%
+%  gary.smith@ed.ac.uk  01 10 2018
+%
 % strings to search in subFolder name for
 uMapTypeIDArray = ['DX';'DN';'ML';'CT';'RV';'SV'];
 rawDataID       = 'Raw_Data';
@@ -28,7 +30,6 @@ folderType = '';
         uMapType = uMapTypeIDArray(iType,:);
         %disp([subFolder,'---']);
         
-        %if( all( ismember( uMapType, subFolder ) ) )
         if( strfind( subFolder, uMapType ) )
             folderType = uMapType;
         
