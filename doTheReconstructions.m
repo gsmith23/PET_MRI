@@ -6,7 +6,8 @@ function [] = doTheReconstructions(pathToFolders)
 % (and optionally a folder of Radial/Star Vibe data).
 %
 % Example:
-%
+%   
+%   Reading Room PC
 %   pathToFolders = 'D:\Gary_RR\Ready\'
 %
 % contains two scan folders:
@@ -29,7 +30,8 @@ function [] = doTheReconstructions(pathToFolders)
 %   1) using an existing uMap
 %       Dixon (DX/DN), CT (CT), MLAA (ML), 
 %   2) creating a uMap using Radial/Star Vibes (RV)/(SV) data
-%       Edinburgh (ED) & New York (NY) versions
+%       ( both Edinburgh (ED) & New York (NY) versions will be 
+%       carried out)
 %
 %-----
 % Input argument: 
@@ -39,7 +41,7 @@ function [] = doTheReconstructions(pathToFolders)
 % 
 %-----
 % Author:
-%   gary.smith@ed.ac.uk   27 09 2018
+%   gary.smith@ed.ac.uk   01 10 2018
 %
 %-----
 % Requirements:
@@ -72,18 +74,18 @@ function [] = doTheReconstructions(pathToFolders)
 %       to suit any requirement/preference.)
 %
 %       Sub-sub-folders of pathToFolders (sub-folders of each   
-%       scan folder) must contain in their name:
+%       scan folder) must contain somewhere in their name:
 %           a)   raw data in a folder containing 'Raw_Data';
 %           b)i) a uMaps folder with: 
 %                   'DX' (Dixon)
 %                   'DN' (Dixon - no bone)
 %                   'ML' (MLAA) 
 %                   'CT' (CT)
-%               somewhere within the name; and / or
+%                and/or 
 %           b)ii) a Radial/STAR vibes folder with:
 %                   'RV' (Radial Vibes) or
 %                   'SV' (STAR VIBES) 
-%               within the name, plus a Dixon uMaps folder 
+%               within the name, plus a Dixon uMaps folder: 
 %               for preparing the newly created UMap headers.
 %-------------------------------------------------------------
 
@@ -117,7 +119,7 @@ folderList = ls([pathToFolders,'*',uniqueID,'*']);
 % check that there is a list and if so
 % make an integer variable to iterate to
 if( isempty( folderList ) )
-   error(' No folders of scan data were found') 
+   error(' No folders of scan data were found!') 
 else
     nFolders   = length(folderList(:,1));
 end
@@ -145,6 +147,7 @@ for iFolder = 1 : nFolders
    
    pathToData = [pathToFolders,folderList(iFolder,:)];
    
+   % remove any spaces from the folder name
    pathToData = pathToData( find(~isspace(pathToData)));
    
    doAllACMethods(pathToData); 

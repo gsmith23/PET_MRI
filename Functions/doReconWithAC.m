@@ -35,6 +35,17 @@ function doReconWithAC(uMapType, ...
 %   pathToData: full path to the folder containing data folder/s 
 %               and uMap folder/s   
 %
+% Types of uMaps
+%
+%   Use existing uMaps
+%   DX  - Dixon uMaps
+%   ML  - MLAA uMaps
+%   CT  - CT uMaps
+%   DN  - Dixon No Bone uMaps
+%
+%   Create uMaps using Radial/Star Vibes Data 'RV' / 'SV'
+%   ED  - Edinburgh method
+%   NY  - New York method
 % ---------------
 % Author
 %
