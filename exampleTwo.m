@@ -1,6 +1,7 @@
 % simple script to start reconstruction code running
 
 % path to scan folder contating raw data and uMap/s
+%   Laptop example
 pathToData = 'C:\Data\JSRecon12-TestData\Ready\VE11PTestData\';
 
 % uMap type (Dixon)

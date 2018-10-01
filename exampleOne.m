@@ -2,7 +2,9 @@
 
 % location of scan folder or folders
 % NB final slash is required
-%pathToFolders = 'D:\Gary_RR\Ready\';
+%   Reading room PC
+% pathToFolders = 'D:\Gary_RR\Ready\';
+%   Laptop 
 pathToFolders = 'C:\Data\JSRecon12-TestData\Ready\';
 
 % execute the reconstruction process
