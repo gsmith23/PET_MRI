@@ -49,7 +49,7 @@ function doReconWithAC(uMapType, ...
 % ---------------
 % Author
 %
-%   gary.smith@ed.ac.uk     28 09 2018
+%   gary.smith@ed.ac.uk     01 10 2018
 %
                                 
 %-------------------------------------------------
@@ -89,9 +89,10 @@ runReconstruction(pathToData);
 copyConvertedData( uMapType, ...
                    pathToData );
 
-% e) Clean up ready for next pipeline
+% e) Clean up ready for next recon.
 % To Do: add check for permissions, 
-% pause with message if no 'write'.
+% pause with message if no 'write'
+% permission.
 
 deleteProcessingFolder(pathToData);       
 

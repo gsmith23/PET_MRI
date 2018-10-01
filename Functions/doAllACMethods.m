@@ -44,6 +44,7 @@ for iSF = 1 : nSubFolders
     subFolder  = subFolderList(iSF,:);
     folderType = getFolderType(subFolder);
     
+    % append uMapType to list
     switch folderType
         case 'DX' 
             uMapList = [uMapList; 'DX'];

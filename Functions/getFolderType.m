@@ -37,7 +37,7 @@ folderType = '';
     
     end % for
 
-    if( strfind(  subFolder, rawDataID ) )
+    if( strfind( subFolder, rawDataID ) )
         folderType = 'Raw_Data';
     end
 end
