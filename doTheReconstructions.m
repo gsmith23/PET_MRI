@@ -2,7 +2,7 @@ function [] = doTheReconstructions(pathToFolders)
 % doTheReconstructions() reconstruct raw data from multiple PET scans
 % 
 % Sub-folder/s of folders in 'pathToFolders' should contain    
-% a folder of raw data plus one or more folder containing a uMap   
+% a folder of raw data plus one or more folders containing a uMap   
 % (and optionally a folder of Radial/Star Vibe data).
 %
 % Example:
