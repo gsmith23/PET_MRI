@@ -1,8 +1,9 @@
-% a simple script to execute the reconstruction code 
+% Simple script to execute image reconstruction code.
+%
+%   gary.smith@ed.ac.uk  01 10 18
 %
 % This code can be used to do a single reconstruction.
 %
-
 % path to scan folder containing raw data and a uMap
 %  Note: set to the name of a folder containing a
 %        sub-folder of raw data and a Dixon uMap sub-folder
