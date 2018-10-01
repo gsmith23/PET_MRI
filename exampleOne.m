@@ -10,7 +10,7 @@
 %        The raw data folder should contain 'Raw_Data' in 
 %        somewhere within its name.
 % Reading Room PC example:
-pathToData = 'D:\Gary_RR\Ready\PETMRI_TestData_B20P_Test1\';
+pathToData = 'D:\Gary_RR\Ready\PETMRI_TestData_B20P_Test1';
 
 % uMap type (Dixon)
 % NB Dixon uMap folder must contain 'DX' in its name
